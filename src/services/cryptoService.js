@@ -1,6 +1,6 @@
 import * as jose from "jose";
 
-const idpServerURL = process.env.REACT_APP_AUDIENCE_URL;
+const idpApiURL = process.env.REACT_APP_IDP_API_URL;
 
 const privatePem = `-----BEGIN PRIVATE KEY-----
 MIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCoebt3VgqwAE5k
@@ -59,7 +59,7 @@ const generateSignedJwt = async (clientId) => {
   var payload = {
     iss: clientId,
     sub: clientId,
-    aud: idpServerURL,
+    aud: idpApiURL,
   };
 
   const keyObjFromJwk = await jose.importJWK(public_private_key_jwk, alg);

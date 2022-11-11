@@ -3,9 +3,9 @@ import { useSearchParams } from "react-router-dom";
 import { Error } from "../common/Errors";
 import { clientDetails } from "../constants/clientDetails";
 import { generateSignedJwt } from "../services/cryptoService";
-import { get_GetUserInfo, post_GetToken } from "../services/oidcService";
 import { LoadingStates as states } from "../constants/states";
 import LoadingIndicator from "../common/LoadingIndicator";
+import { post_fetchUserInfo } from "../services/oidcService";
 
 export default function UserProfile() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -26,7 +26,7 @@ export default function UserProfile() {
       }
 
       if (authCode) {
-        callGetToken(authCode);
+        getUserDetails(authCode);
       } else {
         setError({
           errorCode: "authCode_missing",
@@ -40,7 +40,7 @@ export default function UserProfile() {
   }, []);
 
   //Handle Login API Integration here
-  const callGetToken = async (authCode) => {
+  const getUserDetails = async (authCode) => {
     setError(null);
     setUserInfo(null);
 
@@ -51,7 +51,7 @@ export default function UserProfile() {
       let client_assertion_type = clientDetails.client_assertion_type;
       let client_assertion = await generateSignedJwt(client_id);
 
-      var tokenResponse = await post_GetToken(
+      var userInfo = await post_fetchUserInfo(
         authCode,
         client_id,
         redirect_uri,
@@ -59,19 +59,6 @@ export default function UserProfile() {
         client_assertion_type,
         client_assertion
       );
-      callUserInfo(tokenResponse);
-    } catch (errormsg) {
-      setError({ errorCode: "", errorMsg: errormsg.message });
-      setStatus(states.ERROR);
-    }
-  };
-
-  //Handle Login API Integration here
-  const callUserInfo = async (tokens) => {
-    setError(null);
-    setUserInfo(null);
-    try {
-      var userInfo = await get_GetUserInfo(tokens.access_token);
       setUserInfo(userInfo);
       setStatus(states.LOADED);
     } catch (errormsg) {

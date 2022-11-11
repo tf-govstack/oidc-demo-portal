@@ -18,7 +18,7 @@ const clientDetails_healthservices_Anshul = {
   clientId: "healthservices_Anshul",
   scope: scope,
   response_type: responseType,
-  redirect_uri: process.env.REACT_APP_REDIRECT_URI,
+  redirect_uri: window.origin + process.env.REACT_APP_REDIRECT_URI,
   display: display,
   prompt: prompt,
   acr_values: acr_values,
