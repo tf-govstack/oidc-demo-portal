@@ -1,6 +1,6 @@
 import * as jose from "jose";
 
-const idpApiURL = process.env.REACT_APP_IDP_API_URL;
+const idpApiURL = window._env_.IDP_API_URL;
 
 const privatePem = `-----BEGIN PRIVATE KEY-----
 MIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCoebt3VgqwAE5k
