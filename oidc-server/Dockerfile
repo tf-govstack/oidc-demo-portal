@@ -1,12 +1,14 @@
 
 FROM node:12.18.4-alpine as build
 
+ARG idp_api_url
+
 WORKDIR /app
 
 #Copy the app
 COPY . ./
 ENV PORT=8888
-ENV IDP_BASE_URL=http://192.168.0.105:8088/v1/idp
+ENV IDP_BASE_URL=${idp_api_url}
 
 RUN npm install
 CMD ["node", "./app.js"]

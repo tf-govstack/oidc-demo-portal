@@ -1,6 +1,9 @@
 
 FROM node:12.18.4-alpine as build
 
+ARG idp_ui_base_url
+ARG idp_api_url
+
 #Set working directory to /app
 WORKDIR /app
 
@@ -13,13 +16,8 @@ RUN npm install
 #Copy the app
 COPY . ./
 
-# for server
-# ENV REACT_APP_IDP_UI_BASE_URL=https://idp.dev.mosip.net
-# ENV REACT_APP_IDP_API_URL=https://api.dev.mosip.net/v1/idp
-
-# for local
-ENV REACT_APP_IDP_UI_BASE_URL=http://localhost:3000
-ENV REACT_APP_IDP_API_URL=http://localhost:8088/v1/idp
+ENV REACT_APP_IDP_UI_BASE_URL=${idp_ui_base_url}
+ENV REACT_APP_IDP_API_URL=${idp_api_url}
 
 #Start the app
 # CMD [ "npm", "run", "start" ]
