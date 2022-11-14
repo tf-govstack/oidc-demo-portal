@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Error } from "../common/Errors";
 import { clientDetails } from "../constants/clientDetails";
 
-const uibaseUrl = process.env.REACT_APP_IDP_UI_BASE_URL;
+const uibaseUrl = window._env_.IDP_UI_BASE_URL;
 const authorizeEndpoint = "/authorize";
 
 export default function Login() {
