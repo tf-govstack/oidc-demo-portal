@@ -4,7 +4,7 @@ import { decodeJWT } from "./cryptoService";
 const baseUrl =
   process.env.NODE_ENV === "development"
     ? process.env.REACT_APP_OIDC_BASE_URL
-    : window.origin + process.env.REACT_APP_OIDC_BASE_URL;
+    : window.origin + window._env_.OIDC_BASE_URL;
 
 const fetchUserInfoEndPoint = "/fetchUserInfo";
 
