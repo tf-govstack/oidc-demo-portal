@@ -14,6 +14,7 @@ app.post("/fetchUserInfo", async (req, res) => {
     const tokenResponse = await post_GetToken(req.body);
     res.send(await get_GetUserInfo(tokenResponse.access_token));
   } catch (error) {
+    console.log(error)
     res.status(500).send(error);
   }
 });

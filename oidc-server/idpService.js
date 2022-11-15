@@ -1,7 +1,7 @@
 const axios = require("axios");
 const { IDP_BASE_URL } = require("./config");
 
-const baseUrl = IDP_BASE_URL;
+const baseUrl = IDP_BASE_URL.trim();
 const getTokenEndPoint = "/oauth/token";
 const getUserInfoEndPoint = "/oidc/userinfo";
 
