@@ -12,16 +12,16 @@ const maxAge = "21";
 const claimsLocales = "en";
 const uiLocales = "en";
 
-const clientDetails_healthservices_Anshul = {
+const clientDetails_healthservices = {
   nonce: nonce,
   state: state,
-  clientId: "healthservices_Anshul",
+  clientId: window._env_.CLIENT_ID,
   scope: scope,
   response_type: responseType,
-  redirect_uri: window.origin + process.env.REACT_APP_REDIRECT_URI,
+  redirect_uri: window.origin + window._env_.REDIRECT_URI,
   display: display,
   prompt: prompt,
-  acr_values: acr_values,
+  acr_values: window._env_.ACRS,
   claims: {
     userinfo: {
       given_name: {
@@ -52,4 +52,4 @@ const clientDetails_healthservices_Anshul = {
   ui_locales: uiLocales,
 };
 
-export { clientDetails_healthservices_Anshul as clientDetails };
+export { clientDetails_healthservices as clientDetails };
