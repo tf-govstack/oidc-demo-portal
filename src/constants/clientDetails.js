@@ -18,7 +18,7 @@ const clientDetails_healthservices = {
   clientId: window._env_.CLIENT_ID,
   scope: scope,
   response_type: responseType,
-  redirect_uri: window.origin + window._env_.REDIRECT_URI,
+  redirect_uri: window._env_.REDIRECT_URI,
   display: display,
   prompt: prompt,
   acr_values: window._env_.ACRS,
