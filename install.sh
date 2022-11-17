@@ -40,6 +40,6 @@ helm -n $NS install idp-oidc-server mosip-oidc/oidc-server --version $CHART_VERS
 echo Installing OIDC UI
 helm -n $NS install oidc-ui mosip-oidc/oidc-ui --version $CHART_VERSION
 
-kubectl -n $NS  get deploy -o name |  xargs -n1 -t  kubectl -n $NS rollout status
+kubectl -n $NS get deploy oidc-ui idp-oidc-server -o name |  xargs -n1 -t  kubectl -n $NS rollout status
 
-echo Installed OIDC server & OIDC-UI
+echo "Installed OIDC server & OIDC-UI"
