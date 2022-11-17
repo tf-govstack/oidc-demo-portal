@@ -415,7 +415,6 @@ metrics:
     rules: []
 
 ## Only internal access
-## ddd
 istio:
   enabled: true
   gateways:

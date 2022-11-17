@@ -427,7 +427,6 @@ oidc_ui:
   PRIVATE_KEY: ''
 ## oidc UI swagger should have only internal access. Hence linked to internal gateway
 ## We create a gateway for oidc specific URL(s) listed under `hosts`
-## ddd
 istio:
   enabled: true
   ingressController:
