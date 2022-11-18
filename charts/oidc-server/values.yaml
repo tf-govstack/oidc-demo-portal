@@ -73,7 +73,7 @@ oidc_server:
   privurl:
   IDP_BASE_URL: http://idp.idp/v1/idp
 ## Port on which this particular spring service module is running.
-containerPort: 80
+containerPort: 8888
 
 ## Configure extra options for liveness and readiness probes
 ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/#configure-probes
