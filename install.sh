@@ -6,15 +6,28 @@ if [ $# -ge 1 ] ; then
   export KUBECONFIG=$1
 fi
 
-read -p "Please provide private key file : " private_key
+read -p "Please provide private key file : " PRIVATE_KEY
 
-if [ -z "$private_key" ]; then
+if [ -z "$PRIVATE_KEY" ]; then
   echo "Private key file not provided; EXITING;";
-  exit 1;
+  exit 0;
 fi
-if [ ! -f "$private_key" ]; then
+if [ ! -f "$PRIVATE_KEY" ]; then
   echo "Private key not found; EXITING;";
-  exit 1;
+  exit 0;
+fi
+
+read -p "Please provide oidc domain (eg: healthservices.sandbox.xyz.net ) : " OIDC_HOST
+
+if [ -z "$OIDC_HOST" ]; then
+  echo "OIDC Host not provided; EXITING;"
+  exit 0;
+fi
+
+CHK_OIDC_HOST=$( nslookup "$OIDC_HOST" )
+if [ $? -gt 0 ]; then
+  echo "OIDC Host does not exists; EXITING;"
+  exit 0;
 fi
 
 NS=idp
@@ -25,21 +38,40 @@ kubectl create ns $NS
 
 echo Istio label
 kubectl label ns $NS istio-injection=enabled --overwrite
-helm repo add mosip-oidc https://mosip.github.io/oidc-demo-portal
-helm repo update
+
+echo "Build oidc charts"
+cd charts/oidc-server
+helm dependency update
+cd ../../charts/oidc-ui
+helm dependency update
+
+cd ../../
+
+echo "Copy configmaps"
+./copy_cm.sh
 
 echo "Create secret for oidc-ui-secrets, delete if exists"
-cp "$private_key" /tmp/private-key
+cat "$PRIVATE_KEY" | sed "s/'//g" | sed -z 's/\n/\\n/g' > /tmp/private-key
+
 kubectl -n $NS delete --ignore-not-found=true secrets oidc-ui-secrets
 kubectl -n $NS create secret generic oidc-ui-secrets --from-file="/tmp/private-key"
 
+API_HOST=$(kubectl get cm global -o jsonpath={.data.mosip-api-host})
+IDP_HOST=$(kubectl get cm global -o jsonpath={.data.mosip-idp-host})
 
 echo Installing OIDC Server
-helm -n $NS install idp-oidc-server mosip-oidc/oidc-server --version $CHART_VERSION
+helm -n $NS install oidc-server ./charts/oidc-server --version $CHART_VERSION
 
 echo Installing OIDC UI
-helm -n $NS install oidc-ui mosip-oidc/oidc-ui --version $CHART_VERSION
+helm -n $NS install oidc-ui ./charts/oidc-ui \
+    --set oidc_ui.oidc_service_host="$OIDC_HOST" \
+    --set oidc_ui.IDP_UI_BASE_URL="https://$IDP_HOST" \
+    --set oidc_ui.IDP_API_URL="https://$API_HOST"/v1/idp"" \
+    --set oidc_ui.OIDC_BASE_URL="https://$OIDC_HOST/oidc-server" \
+    --set oidc_ui.REDIRECT_URI="https://$OIDC_HOST/userprofile" \
+    --set istio.hosts\[0\]="$OIDC_HOST" \
+    --version $CHART_VERSION
 
-kubectl -n $NS get deploy oidc-ui idp-oidc-server -o name |  xargs -n1 -t  kubectl -n $NS rollout status
+kubectl -n $NS get deploy oidc-ui oidc-server -o name |  xargs -n1 -t  kubectl -n $NS rollout status
 
-echo "Installed OIDC server & OIDC-UI"
+echo "Installed OIDC Server & OIDC-UI"
