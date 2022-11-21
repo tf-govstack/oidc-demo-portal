@@ -127,8 +127,8 @@ resources:
     cpu: 300m
     memory: 1500Mi
   requests:
-    cpu: 100m
-    memory: 50Mi
+    cpu: 200m
+    memory: 200Mi
 
 additionalResources:
   ## Specify any JAVA_OPTS string here. These typically will be specified in conjunction with above resources
@@ -416,15 +416,15 @@ metrics:
 ## CAUTION: Domain name to acess oidc UI must be secure/internal/over vpn.
 ## Slash is important!
 oidc_ui:
-  oidc_ui_port: '443'
-  oidc_service_host: 'healthservices.dev.mosip.net'
-  IDP_UI_BASE_URL: https://idp.dev.mosip.net
-  IDP_API_URL: https://api.dev.mosip.net/v1/idp
-  OIDC_BASE_URL: https://healthservices.dev.mosip.net/oidc-server
-  REDIRECT_URI: https://healthservices.dev.mosip.net/userprofile
+  oidc_ui_port: '5000'
+  oidc_service_host: 'healthservices.sandbox.xyz.net'
+  IDP_UI_BASE_URL: https://idp.sandbox.xyz.net
+  IDP_API_URL: https://api.sandbox.xyz.net/v1/idp
+  OIDC_BASE_URL: https://healthservices.sandbox.xyz.net/oidc-server
+  REDIRECT_URI: https://healthservices.sandbox.xyz.net/userprofile
   CLIENT_ID: healthservices_Anshul
   ACRS: mosip:idp:acr:static-code
-  PRIVATE_KEY: ''
+
 ## oidc UI swagger should have only internal access. Hence linked to internal gateway
 ## We create a gateway for oidc specific URL(s) listed under `hosts`
 istio:

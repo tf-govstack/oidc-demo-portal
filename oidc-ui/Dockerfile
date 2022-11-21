@@ -28,11 +28,33 @@ EXPOSE 443
 
 FROM nginx
 
+ARG SOURCE
+ARG COMMIT_HASH
+ARG COMMIT_ID
+ARG BUILD_TIME
+LABEL source=${SOURCE}
+LABEL commit_hash=${COMMIT_HASH}
+LABEL commit_id=${COMMIT_ID}
+LABEL build_time=${BUILD_TIME}
+
+# can be passed during Docker build as build time environment for github branch to pickup configuration from.
+ARG container_user=mosip
+
+# can be passed during Docker build as build time environment for github branch to pickup configuration from.
+ARG container_user_group=mosip
+
+# can be passed during Docker build as build time environment for github branch to pickup configuration from.
+ARG container_user_uid=1001
+
+# can be passed during Docker build as build time environment for github branch to pickup configuration from.
+ARG container_user_gid=1001
+
 COPY ./nginx/nginx.conf /etc/nginx/nginx.conf
 COPY --from=build /app/build /usr/share/nginx/html
 
+ENV work_dir=/usr/share/nginx/html
 
-WORKDIR /usr/share/nginx/html
+WORKDIR ${work_dir}
 COPY ./env.sh .
 ADD .env .
 
@@ -40,6 +62,14 @@ ADD .env .
 RUN chmod +x env.sh
 
 RUN echo "IDP_UI_BASE_URL=$IDP_UI_BASE_URL" > .env && echo "IDP_API_URL=$IDP_API_URL" >> .env && echo "OIDC_BASE_URL=$OIDC_BASE_URL" >> .env && echo "REDIRECT_URI=$REDIRECT_URI" >> .env && echo "CLIENT_ID=$CLIENT_ID" >> .env && echo "ACRS=$ACRS" >> .env && echo "PRIVATE_KEY=$PRIVATE_KEY" >> .env
+
+# change permissions of file inside working dir
+RUN chown -R ${container_user}:${container_user} ${work_dir}
+
+# select container user for all tasks
+USER ${container_user_uid}:${container_user_gid}
+
+EXPOSE 5000
 
 # Start Nginx server
 CMD ["/bin/sh", "-c", "/usr/share/nginx/html/env.sh && nginx -g \"daemon off;\""]
