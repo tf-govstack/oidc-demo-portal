@@ -52,6 +52,11 @@ ARG container_user_gid=1001
 COPY ./nginx/nginx.conf /etc/nginx/nginx.conf
 COPY --from=build /app/build /usr/share/nginx/html
 
+# install packages and create user
+RUN apt-get -y update \
+&& groupadd -g ${container_user_gid} ${container_user_group} \
+&& useradd -u ${container_user_uid} -g ${container_user_group} -s /bin/sh -m ${container_user}
+
 ENV work_dir=/usr/share/nginx/html
 
 WORKDIR ${work_dir}
