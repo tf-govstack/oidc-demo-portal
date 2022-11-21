@@ -66,7 +66,7 @@ jobs:
   build-oidc-server:
     runs-on: ubuntu-latest
     env:
-      NAMESPACE: ${{ secrets. dev_namespace_docker_hub }}
+      NAMESPACE: ${{ secrets.dev_namespace_docker_hub }}
       SERVICE_NAME: oidc-server
       SERVICE_LOCATION: oidc-server
 
