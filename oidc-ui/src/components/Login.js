@@ -129,7 +129,7 @@ export default function Login() {
             >
               Sign in with MOSIP
               <div class="flex absolute inset-y-0 right-0 items-center pr-3 pointer-events-none">
-                <img class="flex mr-1 ml-1 w-6 h-6" src="logo.png" />
+                <img class="flex mr-1 ml-1 w-6 h-6" src="mosip_logo.png" />
               </div>
             </button>
           </a>

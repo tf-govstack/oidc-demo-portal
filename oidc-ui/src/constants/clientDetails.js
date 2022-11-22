@@ -2,7 +2,6 @@ const state = "eree2311";
 const nonce = "ere973eieljznge2311";
 const responseType = "code";
 const scope = "openid profile";
-const acr_values = "mosip:idp:acr:static-code";
 const display = "page";
 const prompt = "consent";
 const grantType = "authorization_code";
