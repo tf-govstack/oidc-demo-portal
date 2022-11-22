@@ -27,6 +27,9 @@ ENV work_dir=/app
 
 WORKDIR ${work_dir}
 
+RUN addgroup -g ${container_user_gid} ${container_user} && \
+    adduser ${container_user} -G ${container_user} -u ${container_user_uid} --disabled-password
+
 #Copy the app
 COPY . ./
 ENV PORT=8888
@@ -36,9 +39,9 @@ ENV IDP_BASE_URL=${idp_api_url}
 RUN chown -R ${container_user}:${container_user} ${work_dir}
 
 # select container user for all tasks
-USER ${container_user_uid}:${container_user_gid}
+USER ${container_user}
 
-EXPOSE {PORT}
+EXPOSE ${PORT}
 
 RUN npm install
 CMD ["node", "./app.js"]
