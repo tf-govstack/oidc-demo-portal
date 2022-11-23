@@ -5,14 +5,14 @@ import { clientDetails } from "../constants/clientDetails";
 const uibaseUrl = window._env_.IDP_UI_BASE_URL;
 const authorizeEndpoint = "/authorize";
 
-export default function Login() {
+export default function SignUp() {
   const [error, setError] = useState(null);
 
   const handleLogin = (e) => {
     e.preventDefault();
     setError({
       errorCode: "",
-      errorMsg: "Authentication failed! Try sign in with MOSIP",
+      errorMsg: "Sign Up failed! Try sign in with MOSIP",
     });
   };
 
@@ -64,30 +64,33 @@ export default function Login() {
     <>
       <div class="w-full px-20">
         <h1 class="w-full text-center title-font sm:text-3xl text-3xl mb-8 font-medium text-gray-900">
-          Sign In with health portal
+          Sign Up with health portal
         </h1>
 
-        <div class="w-full flex mb-6 text-slate-500">
-          <span class="w-11 inline-flex items-center px-3 text-sm text-gray-900 bg-gray-200 rounded-l-md border border-r-0 border-gray-300">
-            <img src="images/username_icon.png" />
-          </span>
+        <div class="flex grid grid-cols-2 gap-2 w-full">
+          <div class="w-full flex flex-col mb-6 text-slate-500">
+            <label>First Name</label>
+            <input
+              type="text"
+              id="website-admin"
+              class="rounded bg-gray-50 border text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 text-sm border-gray-300 p-2.5"
+            />
+          </div>
+          <div class="w-full flex flex-col mb-6 text-slate-500">
+            <label>Last Name</label>
+            <input
+              type="text"
+              id="website-admin"
+              class="rounded bg-gray-50 border text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 text-sm border-gray-300 p-2.5"
+            />
+          </div>
+        </div>
+        <div class="w-full flex flex-col mb-6 text-slate-500">
+          <label>Password</label>
           <input
             type="text"
             id="website-admin"
-            class="rounded-none rounded-r-lg bg-gray-50 border text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 text-sm border-gray-300 p-2.5  "
-            placeholder="Username"
-          />
-        </div>
-
-        <div class="w-full flex mb-6 text-slate-500">
-          <span class="w-11 inline-flex items-center px-3 text-sm text-gray-900 bg-gray-200 rounded-l-md border border-r-0 border-gray-300">
-            <img src="images/password_icon.png" />
-          </span>
-          <input
-            type="password"
-            id="website-admin"
             class="rounded-none rounded-r-lg bg-gray-50 border text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 text-sm border-gray-300 p-2.5"
-            placeholder="Password"
           />
         </div>
         <button
@@ -123,11 +126,11 @@ export default function Login() {
             </div>
           </button>
         </a>
-        <div class="flex flex-justify mt-5 w-full items-center text-center">
+        <div class="flex flex-justify mt-3 w-full items-center text-center">
           <p class="w-full text-center">
-            If you don't have existing account, please&nbsp;
-            <a href="/signup" className="text-[#2F8EA3]">
-              Sign up here
+            If you already have an account please&nbsp;
+            <a href="/" className="text-[#2F8EA3]">
+              Sign in here
             </a>
           </p>
         </div>
