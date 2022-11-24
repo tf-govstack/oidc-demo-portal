@@ -68,78 +68,72 @@ export default function UserProfile() {
   };
 
   let el = (
-    <>
-      <section class="text-gray-600 h-screen bg-[#FAFAFC] body-font pb-14">
-        <div class="container mx-auto flex px-24 pt-12 md:flex-row flex-col items-center">
-          <div class="flex justify-center rounded-none rounded-r-lg bg-[#FAFAFC] max-w-lg w-full w-1/2 w-5/6 mb-10 pb-16">
-            <img
-              class="object-cover object-center rounded"
-              alt="util"
-              src="images/illustartion.png"
-            />
-          </div>
-          <div className="relative flex-grow bg-[#F2F4F4] mb-6 shadow-lg rounded">
-            <div className="py-10 flex-auto">
-              {status === states.LOADING && (
-                <LoadingIndicator
-                  size="medium"
-                  message={"Loading! Please wait."}
+    <div class="w-full pt-5">
+      <div className="flex-grow bg-[#F2F4F4] mb-6 shadow-lg rounded">
+        <div className="py-10">
+          {status === states.LOADING && (
+            <LoadingIndicator size="medium" message={"Loading! Please wait."} />
+          )}
+          {status === states.LOADED && (
+            <>
+              <div className="px-4">
+                <div className="font-bold flex justify-center">
+                  {userInfo?.given_name}
+                </div>
+                <div className="font-bold flex justify-center">
+                  Welcome to Health services
+                </div>
+              </div>
+              <div className=" px-3 py-6 flex justify-center">
+                <img
+                  alt="profile picture"
+                  className="h-20 w-20"
+                  src={
+                    userInfo?.picture
+                      ? userInfo.picture
+                      : "User-Profile-Icon.png"
+                  }
                 />
-              )}
-              {status === states.LOADED && (
-                <>
-                  <div className="px-4">
-                    <div className="font-bold flex justify-center">
-                      {userInfo?.given_name}
-                    </div>
-                    <div className="flex justify-center">
-                      Welcome to Health services
-                    </div>
-                  </div>
-                  <div className=" px-3 py-3 flex justify-center">
-                    <img
-                      alt="profile picture"
-                      className="h-20 w-20"
-                      src={
-                        userInfo?.picture
-                          ? userInfo.picture
-                          : "User-Profile-Icon.png"
-                      }
-                    />
-                  </div>
+              </div>
 
-                  <div class="divide-slate-300 gap-2">
-                    <div class="px-4 py-1 grid grid-cols-2">
-                      <div className="flex justify-start">Email Address</div>
-                      <div className="flex justify-end">{userInfo?.email}</div>
-                    </div>
-                    <div class="px-4 py-1 bg-white grid grid-cols-2">
-                      <div className="flex justify-start">Gender</div>
-                      <div className="flex justify-end">{userInfo?.gender}</div>
-                    </div>
-                    <div class="px-4 py-1 grid grid-cols-2">
-                      <div className="flex justify-start">Phone number</div>
-                      <div className="flex justify-end">
-                        {userInfo?.phone_number}
-                      </div>
-                    </div>
-                    <div class="px-4 py-1 bg-white grid grid-cols-2">
-                      <div className="flex justify-start">Birth Date</div>
-                      <div className="flex justify-end">
-                        {userInfo?.birthdate}
-                      </div>
-                    </div>
+              <div class="divide-slate-300 gap-2">
+                <div class="px-4 py-3 grid grid-cols-2">
+                  <div className="flex justify-start">
+                    Email Address
                   </div>
-                </>
-              )}
-              {status === states.ERROR && (
-                <Error errorCode={error.errorCode} errorMsg={error.errorMsg} />
-              )}
-            </div>
-          </div>
+                  <div className="flex justify-end">
+                    {userInfo?.email}
+                  </div>
+                </div>
+                <div class="px-4 py-3 bg-white grid grid-cols-2">
+                  <div className="flex justify-start">Gender</div>
+                  <div className="flex justify-end">
+                    {userInfo?.gender}
+                  </div>
+                </div>
+                <div class="px-4 py-3 grid grid-cols-2">
+                  <div className="flex justify-start">
+                    Phone number
+                  </div>
+                  <div className="flex justify-end">
+                    {userInfo?.phone_number}
+                  </div>
+                </div>
+                <div class="px-4 py-3 bg-white grid grid-cols-2">
+                  <div className="flex justify-start">Birth Date</div>
+                  <div className="flex justify-end">
+                    {userInfo?.birthdate}
+                  </div>
+                </div>
+              </div>
+            </>
+          )}
+          {status === states.ERROR && (
+            <Error errorCode={error.errorCode} errorMsg={error.errorMsg} />
+          )}
         </div>
-      </section>
-    </>
+      </div>
+    </div>
   );
 
   return el;
