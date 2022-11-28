@@ -68,7 +68,7 @@ export default function UserProfile() {
   };
 
   let el = (
-    <div class="w-full pt-5">
+    <div className="w-full pt-5">
       <div className="flex-grow bg-[#F2F4F4] mb-6 shadow-lg rounded">
         <div className="py-10">
           {status === states.LOADING && (
@@ -96,8 +96,8 @@ export default function UserProfile() {
                 />
               </div>
 
-              <div class="divide-slate-300 gap-2">
-                <div class="px-4 py-3 grid grid-cols-2">
+              <div className="divide-slate-300 gap-2">
+                <div className="px-4 py-3 grid grid-cols-2">
                   <div className="flex justify-start">
                     Email Address
                   </div>
@@ -105,13 +105,13 @@ export default function UserProfile() {
                     {userInfo?.email}
                   </div>
                 </div>
-                <div class="px-4 py-3 bg-white grid grid-cols-2">
+                <div className="px-4 py-3 bg-white grid grid-cols-2">
                   <div className="flex justify-start">Gender</div>
                   <div className="flex justify-end">
                     {userInfo?.gender}
                   </div>
                 </div>
-                <div class="px-4 py-3 grid grid-cols-2">
+                <div className="px-4 py-3 grid grid-cols-2">
                   <div className="flex justify-start">
                     Phone number
                   </div>
@@ -119,7 +119,7 @@ export default function UserProfile() {
                     {userInfo?.phone_number}
                   </div>
                 </div>
-                <div class="px-4 py-3 bg-white grid grid-cols-2">
+                <div className="px-4 py-3 bg-white grid grid-cols-2">
                   <div className="flex justify-start">Birth Date</div>
                   <div className="flex justify-end">
                     {userInfo?.birthdate}

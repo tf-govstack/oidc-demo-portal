@@ -62,40 +62,40 @@ export default function SignUp() {
 
   return (
     <>
-      <div class="w-full px-20">
-        <h1 class="w-full text-center title-font sm:text-3xl text-3xl mb-8 font-medium text-gray-900">
+      <div className="w-full px-20">
+        <h1 className="w-full text-center title-font sm:text-3xl text-3xl mb-8 font-medium text-gray-900">
           Sign Up with health portal
         </h1>
 
-        <div class="flex grid grid-cols-2 gap-2 w-full">
-          <div class="w-full flex flex-col mb-6 text-slate-500">
+        <div className="flex grid grid-cols-2 gap-2 w-full">
+          <div className="w-full flex flex-col mb-6 text-slate-500">
             <label>First Name</label>
             <input
               type="text"
               id="website-admin"
-              class="rounded bg-gray-50 border text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 text-sm border-gray-300 p-2.5"
+              className="rounded bg-gray-50 border text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 text-sm border-gray-300 p-2.5"
             />
           </div>
-          <div class="w-full flex flex-col mb-6 text-slate-500">
+          <div className="w-full flex flex-col mb-6 text-slate-500">
             <label>Last Name</label>
             <input
               type="text"
               id="website-admin"
-              class="rounded bg-gray-50 border text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 text-sm border-gray-300 p-2.5"
+              className="rounded bg-gray-50 border text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 text-sm border-gray-300 p-2.5"
             />
           </div>
         </div>
-        <div class="w-full flex flex-col mb-6 text-slate-500">
+        <div className="w-full flex flex-col mb-6 text-slate-500">
           <label>Password</label>
           <input
             type="text"
             id="website-admin"
-            class="rounded-none rounded-r-lg bg-gray-50 border text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 text-sm border-gray-300 p-2.5"
+            className="rounded-none rounded-r-lg bg-gray-50 border text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 text-sm border-gray-300 p-2.5"
           />
         </div>
         <button
           type="button"
-          class="w-full justify-center text-white bg-[#2F8EA3] hover:bg-[#2F8EA3]/90 font-medium rounded-lg text-sm px-5 py-2.5 flex items-center mr-2 mb-2"
+          className="w-full justify-center text-white bg-[#2F8EA3] hover:bg-[#2F8EA3]/90 font-medium rounded-lg text-sm px-5 py-2.5 flex items-center mr-2 mb-2"
           onClick={handleLogin}
         >
           SUBMIT
@@ -105,12 +105,12 @@ export default function SignUp() {
           <Error errorCode={error.errorCode} errorMsg={error.errorMsg} />
         )}
 
-        <div class="flex w-full mb-6 mt-6 items-center px-10">
-          <div class="flex-1 h-px bg-black" />
+        <div className="flex w-full mb-6 mt-6 items-center px-10">
+          <div className="flex-1 h-px bg-black" />
           <div>
-            <p class="w-16 text-center">Or</p>
+            <p className="w-16 text-center">Or</p>
           </div>
-          <div class="flex-1 h-px bg-black" />
+          <div className="flex-1 h-px bg-black" />
         </div>
         <a
           href={uri_idp_UI}
@@ -118,16 +118,16 @@ export default function SignUp() {
         >
           <button
             type="button"
-            class="relative w-full text-black bg-gray-50 shadow-lg hover:bg-gray-100  font-medium rounded-lg text-sm px-5 py-2.5 flex items-center mr-2 mb-2"
+            className="relative w-full text-black bg-gray-50 shadow-lg hover:bg-gray-100  font-medium rounded-lg text-sm px-5 py-2.5 flex items-center mr-2 mb-2"
           >
             Sign in with MOSIP
-            <div class="flex absolute inset-y-0 right-0 items-center pr-3 pointer-events-none">
-              <img class="flex mr-1 ml-1 w-6 h-6" src="mosip_logo.png" />
+            <div className="flex absolute inset-y-0 right-0 items-center pr-3 pointer-events-none">
+              <img className="flex mr-1 ml-1 w-6 h-6" src="mosip_logo.png" />
             </div>
           </button>
         </a>
-        <div class="flex flex-justify mt-3 w-full items-center text-center">
-          <p class="w-full text-center">
+        <div className="flex flex-justify mt-3 w-full items-center text-center">
+          <p className="w-full text-center">
             If you already have an account please&nbsp;
             <a href="/" className="text-[#2F8EA3]">
               Sign in here
