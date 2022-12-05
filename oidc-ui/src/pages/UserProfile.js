@@ -1,6 +1,7 @@
 import React from "react";
+import Background from "../components/Background";
 import UserProfile from "../components/UserProfile";
 
 export default function UserProfilePage() {
-  return <UserProfile />;
+  return <Background component={React.createElement(UserProfile)} />;
 }
