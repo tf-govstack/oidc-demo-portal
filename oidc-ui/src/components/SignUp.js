@@ -1,18 +1,22 @@
 import { useState } from "react";
 import { Error } from "../common/Errors";
 import { clientDetails } from "../constants/clientDetails";
+import { useTranslation } from "react-i18next";
 
 const uibaseUrl = window._env_.IDP_UI_BASE_URL;
 const authorizeEndpoint = "/authorize";
 
-export default function SignUp() {
+export default function SignUp({ i18nKeyPrefix = "signup" }) {
+  const { t, i18n } = useTranslation("translation", {
+    keyPrefix: i18nKeyPrefix,
+  });
+
   const [error, setError] = useState(null);
 
   const handleLogin = (e) => {
     e.preventDefault();
     setError({
-      errorCode: "",
-      errorMsg: "Sign Up failed! Try sign in with MOSIP",
+      errorCode: "sign_up_failed",
     });
   };
 
@@ -28,7 +32,7 @@ export default function SignUp() {
   let prompt = clientDetails.prompt;
   let maxAge = clientDetails.max_age;
   let claimsLocales = clientDetails.claims_locales;
-  let uiLocales = clientDetails.ui_locales;
+  let uiLocales = i18n.language;
 
   let uri_idp_UI =
     uibaseUrl +
@@ -64,12 +68,12 @@ export default function SignUp() {
     <>
       <div className="w-full px-20">
         <h1 className="w-full text-center title-font sm:text-3xl text-3xl mb-8 font-medium text-gray-900">
-          Sign Up with health portal
+          {t("sign_up_with_health_portal")}
         </h1>
 
         <div className="flex grid grid-cols-2 gap-2 w-full">
           <div className="w-full flex flex-col mb-6 text-slate-500">
-            <label>First Name</label>
+            <label>{t("first_name")}</label>
             <input
               type="text"
               id="website-admin"
@@ -77,7 +81,7 @@ export default function SignUp() {
             />
           </div>
           <div className="w-full flex flex-col mb-6 text-slate-500">
-            <label>Last Name</label>
+            <label>{t("last_name")}</label>
             <input
               type="text"
               id="website-admin"
@@ -86,7 +90,7 @@ export default function SignUp() {
           </div>
         </div>
         <div className="w-full flex flex-col mb-6 text-slate-500">
-          <label>Password</label>
+          <label>{t("password")}</label>
           <input
             type="text"
             id="website-admin"
@@ -98,7 +102,7 @@ export default function SignUp() {
           className="w-full justify-center text-white bg-[#2F8EA3] hover:bg-[#2F8EA3]/90 font-medium rounded-lg text-sm px-5 py-2.5 flex items-center mr-2 mb-2"
           onClick={handleLogin}
         >
-          SUBMIT
+          {t("submit")}
         </button>
 
         {error && (
@@ -108,7 +112,7 @@ export default function SignUp() {
         <div className="flex w-full mb-6 mt-6 items-center px-10">
           <div className="flex-1 h-px bg-black" />
           <div>
-            <p className="w-16 text-center">Or</p>
+            <p className="w-16 text-center">{t("or")}</p>
           </div>
           <div className="flex-1 h-px bg-black" />
         </div>
@@ -120,7 +124,7 @@ export default function SignUp() {
             type="button"
             className="relative w-full text-black bg-gray-50 shadow-lg hover:bg-gray-100  font-medium rounded-lg text-sm px-5 py-2.5 flex items-center mr-2 mb-2"
           >
-            Sign up with MOSIP
+            {t("sign_up_with_mosip")}
             <div className="flex absolute inset-y-0 right-0 items-center pr-3 pointer-events-none">
               <img className="flex mr-1 ml-1 w-6 h-6" src="mosip_logo.png" />
             </div>
@@ -128,9 +132,9 @@ export default function SignUp() {
         </a>
         <div className="flex flex-justify mt-3 w-full items-center text-center">
           <p className="w-full text-center">
-            If you already have an account please&nbsp;
+            {t("already_have_account")}&nbsp;
             <a href="/" className="text-[#2F8EA3]">
-              Sign in here
+              {t("sign_in_here")}
             </a>
           </p>
         </div>

@@ -1,18 +1,22 @@
 import { useState } from "react";
 import { Error } from "../common/Errors";
 import { clientDetails } from "../constants/clientDetails";
+import { useTranslation } from "react-i18next";
 
 const uibaseUrl = window._env_.IDP_UI_BASE_URL;
 const authorizeEndpoint = "/authorize";
 
-export default function Login() {
+export default function Login({ i18nKeyPrefix = "login" }) {
+  const { t, i18n } = useTranslation("translation", {
+    keyPrefix: i18nKeyPrefix,
+  });
+
   const [error, setError] = useState(null);
 
   const handleLogin = (e) => {
     e.preventDefault();
     setError({
-      errorCode: "",
-      errorMsg: "Authentication failed! Try sign in with MOSIP",
+      errorCode: "sign_in_failed",
     });
   };
 
@@ -28,7 +32,7 @@ export default function Login() {
   let prompt = clientDetails.prompt;
   let maxAge = clientDetails.max_age;
   let claimsLocales = clientDetails.claims_locales;
-  let uiLocales = clientDetails.ui_locales;
+  let uiLocales = i18n.language;
 
   let uri_idp_UI =
     uibaseUrl +
@@ -64,7 +68,7 @@ export default function Login() {
     <>
       <div className="w-full px-20">
         <h1 className="w-full text-center title-font sm:text-3xl text-3xl mb-8 font-medium text-gray-900">
-          Sign In with health portal
+          {t("sign_in_with_health_portal")}
         </h1>
 
         <div className="w-full flex mb-6 text-slate-500">
@@ -75,7 +79,7 @@ export default function Login() {
             type="text"
             id="user"
             className="rounded-none rounded-r-lg bg-gray-50 border text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 text-sm border-gray-300 p-2.5  "
-            placeholder="Username"
+            placeholder={t("username")}
           />
         </div>
 
@@ -87,7 +91,7 @@ export default function Login() {
             type="password"
             id="password"
             className="rounded-none rounded-r-lg bg-gray-50 border text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 text-sm border-gray-300 p-2.5"
-            placeholder="Password"
+            placeholder={t("password")}
           />
         </div>
         <button
@@ -95,7 +99,7 @@ export default function Login() {
           className="w-full justify-center text-white bg-[#2F8EA3] hover:bg-[#2F8EA3]/90 font-medium rounded-lg text-sm px-5 py-2.5 flex items-center mr-2 mb-2"
           onClick={handleLogin}
         >
-          SUBMIT
+          {t("submit")}
         </button>
 
         {error && (
@@ -105,7 +109,7 @@ export default function Login() {
         <div className="flex w-full mb-6 mt-6 items-center px-10">
           <div className="flex-1 h-px bg-black" />
           <div>
-            <p className="w-16 text-center">Or</p>
+            <p className="w-16 text-center">{t("or")}</p>
           </div>
           <div className="flex-1 h-px bg-black" />
         </div>
@@ -117,7 +121,7 @@ export default function Login() {
             type="button"
             className="relative w-full text-black bg-gray-50 shadow-lg hover:bg-gray-100  font-medium rounded-lg text-sm px-5 py-2.5 flex items-center mr-2 mb-2"
           >
-            Sign in with MOSIP
+            {t("sign_in_with_mosip")}
             <div className="flex absolute inset-y-0 right-0 items-center pr-3 pointer-events-none">
               <img className="flex mr-1 ml-1 w-6 h-6" src="mosip_logo.png" />
             </div>
@@ -125,9 +129,9 @@ export default function Login() {
         </a>
         <div className="flex flex-justify mt-5 w-full items-center text-center">
           <p className="w-full text-center">
-            If you don't have existing account, please&nbsp;
+            {t("dont_have_existing_account")}&nbsp;
             <a href="/signup" className="text-[#2F8EA3]">
-              Sign up here
+              {t("sign_up_here")}
             </a>
           </p>
         </div>

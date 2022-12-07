@@ -9,7 +9,6 @@ const clientAssertionType =
   "urn:ietf:params:oauth:client-assertion-type:jwt-bearer";
 const maxAge = "21";
 const claimsLocales = "en";
-const uiLocales = "en";
 
 const clientDetails_healthservices = {
   nonce: nonce,
@@ -48,7 +47,6 @@ const clientDetails_healthservices = {
   max_age: maxAge,
   grant_type: grantType,
   client_assertion_type: clientAssertionType,
-  ui_locales: uiLocales,
 };
 
 export { clientDetails_healthservices as clientDetails };
