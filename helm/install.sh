@@ -31,7 +31,7 @@ if [ $? -gt 0 ]; then
 fi
 
 NS=idp
-CHART_VERSION=12.0.2
+CHART_VERSION=0.0.1
 
 echo Create $NS namespace
 kubectl create ns $NS
@@ -40,12 +40,12 @@ echo Istio label
 kubectl label ns $NS istio-injection=enabled --overwrite
 
 echo "Build oidc charts"
-cd charts/oidc-server
+cd ./oidc-server
 helm dependency update
-cd ../../charts/oidc-ui
+cd ./oidc-ui
 helm dependency update
 
-cd ../../
+cd ../
 
 echo "Copy configmaps"
 ./copy_cm.sh
@@ -60,17 +60,16 @@ API_HOST=$(kubectl get cm global -o jsonpath={.data.mosip-api-host})
 IDP_HOST=$(kubectl get cm global -o jsonpath={.data.mosip-idp-host})
 
 echo Installing OIDC Server
-helm -n $NS install oidc-server ./charts/oidc-server --version $CHART_VERSION
+helm -n $NS install oidc-server ./oidc-server
 
 echo Installing OIDC UI
-helm -n $NS install oidc-ui ./charts/oidc-ui \
+helm -n $NS install oidc-ui ./oidc-ui \
     --set oidc_ui.oidc_service_host="$OIDC_HOST" \
     --set oidc_ui.IDP_UI_BASE_URL="https://$IDP_HOST" \
     --set oidc_ui.IDP_API_URL="https://$API_HOST"/v1/idp"" \
     --set oidc_ui.OIDC_BASE_URL="https://$OIDC_HOST/oidc-server" \
     --set oidc_ui.REDIRECT_URI="https://$OIDC_HOST/userprofile" \
-    --set istio.hosts\[0\]="$OIDC_HOST" \
-    --version $CHART_VERSION
+    --set istio.hosts\[0\]="$OIDC_HOST"
 
 kubectl -n $NS get deploy oidc-ui oidc-server -o name |  xargs -n1 -t  kubectl -n $NS rollout status
 
