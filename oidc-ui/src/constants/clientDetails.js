@@ -9,17 +9,24 @@ const clientAssertionType =
   "urn:ietf:params:oauth:client-assertion-type:jwt-bearer";
 const maxAge = "21";
 const claimsLocales = "en";
+const authorizeEndpoint = "/authorize";
+const clientId = window._env_.CLIENT_ID;
+const uibaseUrl = window._env_.IDP_UI_BASE_URL;
+const redirect_uri_userprofile = window._env_.REDIRECT_URI_USER_PROFILE;
+const redirect_uri_registration = window._env_.REDIRECT_URI_REGISTRATION;
+const acr_values = window._env_.ACRS;
 
-const clientDetails_healthservices = {
+const clientDetails = {
   nonce: nonce,
   state: state,
-  clientId: window._env_.CLIENT_ID,
+  clientId: clientId,
   scope: scope,
   response_type: responseType,
-  redirect_uri: window._env_.REDIRECT_URI,
+  redirect_uri_userprofile: redirect_uri_userprofile,
+  redirect_uri_registration: redirect_uri_registration,
   display: display,
   prompt: prompt,
-  acr_values: window._env_.ACRS,
+  acr_values: acr_values,
   claims: {
     userinfo: {
       given_name: {
@@ -47,6 +54,8 @@ const clientDetails_healthservices = {
   max_age: maxAge,
   grant_type: grantType,
   client_assertion_type: clientAssertionType,
+  uibaseUrl: uibaseUrl,
+  authorizeEndpoint: authorizeEndpoint,
 };
 
-export { clientDetails_healthservices as clientDetails };
+export default clientDetails;

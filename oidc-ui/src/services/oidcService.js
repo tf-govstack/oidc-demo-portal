@@ -1,5 +1,9 @@
 import axios from "axios";
-import { decodeJWT } from "./cryptoService";
+import cryptoService from "./cryptoService";
+
+const { decodeJWT } = {
+  ...cryptoService,
+};
 
 const baseUrl =
   process.env.NODE_ENV === "development"
@@ -34,4 +38,6 @@ const post_fetchUserInfo = async (
   return decodeJWT(response.data);
 };
 
-export { post_fetchUserInfo };
+const oidcService = { post_fetchUserInfo };
+
+export default oidcService;

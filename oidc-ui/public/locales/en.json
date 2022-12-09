@@ -42,9 +42,21 @@
     "phone_number": "Phone number",
     "birth_date": "Birth Date"
   },
-  "error": {
+  "registration": {
+    "child_registration": "Child Registration",
+    "full_name": "Full Name",
+    "gender": "Gender",
+    "date_of_birth": "Date of birth",
+    "city": "City",
+    "address": "Address",
+    "fetch_details": "Fetch details from MOSIP",
+    "register": "Register",
+    "loading_msg": "Loading! Please wait..."
+  },
+  "errors": {
     "sign_in_failed": "Authentication failed! Try sign in with MOSIP",
     "sign_up_failed": "Sign Up failed! Try sign in with MOSIP",
+    "invalid_details": "Invalid details! Try fetching details from MOSIP",
     "authCode_missing": "AuthCode Missing",
     "no_response_msg": "No response",
     "no_devices_found_msg": "Device not found. Please check the connectivity and retry.",

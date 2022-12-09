@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import Select from "react-select";
-import { langConfigService } from "../services/langConfigService";
 
 export default function Background({
   component,
   i18nKeyPrefix = "background",
+  langConfigService,
 }) {
   const { t, i18n } = useTranslation("translation", {
     keyPrefix: i18nKeyPrefix,
@@ -138,7 +138,7 @@ export default function Background({
               </div>
             </div>
           </div>
-          <div className="lg:flex-grow mt-8 md:w-1/2 lg:pl-24 md:pl-16 flex flex-col md:items-start md:text-left">
+          <div className="lg:flex-grow md:w-1/2 lg:pl-24 md:pl-16 flex flex-col md:items-start md:text-left">
             {component}
           </div>
         </div>

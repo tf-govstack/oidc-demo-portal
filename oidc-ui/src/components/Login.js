@@ -1,17 +1,18 @@
 import { useState } from "react";
 import { Error } from "../common/Errors";
-import { clientDetails } from "../constants/clientDetails";
 import { useTranslation } from "react-i18next";
 
-const uibaseUrl = window._env_.IDP_UI_BASE_URL;
-const authorizeEndpoint = "/authorize";
-
-export default function Login({ i18nKeyPrefix = "login" }) {
-  const { t, i18n } = useTranslation("translation", {
+export default function Login({ clientService, i18nKeyPrefix = "login" }) {
+  const { t } = useTranslation("translation", {
     keyPrefix: i18nKeyPrefix,
   });
 
+  const { getURIforSignIn } = {
+    ...clientService,
+  };
+
   const [error, setError] = useState(null);
+  const uri_idp_UI = getURIforSignIn();
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -20,54 +21,10 @@ export default function Login({ i18nKeyPrefix = "login" }) {
     });
   };
 
-  let nonce = clientDetails.nonce;
-  let state = clientDetails.state;
-  let clientId = clientDetails.clientId;
-  let redirect_uri = clientDetails.redirect_uri;
-  let response_type = clientDetails.response_type;
-  let scope = clientDetails.scope;
-  let acr_values = clientDetails.acr_values;
-  let encodedClaims = encodeURI(JSON.stringify(clientDetails.claims));
-  let display = clientDetails.display;
-  let prompt = clientDetails.prompt;
-  let maxAge = clientDetails.max_age;
-  let claimsLocales = clientDetails.claims_locales;
-  let uiLocales = i18n.language;
-
-  let uri_idp_UI =
-    uibaseUrl +
-    authorizeEndpoint +
-    "?nonce=" +
-    nonce +
-    "&state=" +
-    state +
-    "&client_id=" +
-    clientId +
-    "&redirect_uri=" +
-    redirect_uri +
-    "&response_type=" +
-    response_type +
-    "&scope=" +
-    scope +
-    "&acr_values=" +
-    acr_values +
-    "&claims=" +
-    encodedClaims +
-    "&display=" +
-    display +
-    "&prompt=" +
-    prompt +
-    "&max_age=" +
-    maxAge +
-    "&claims_locales=" +
-    claimsLocales +
-    "&ui_locales=" +
-    uiLocales;
-
   return (
     <>
       <div className="w-full px-20">
-        <h1 className="w-full text-center title-font sm:text-3xl text-3xl mb-8 font-medium text-gray-900">
+        <h1 className="w-full text-center title-font sm:text-3xl text-3xl mt-8 mb-8 font-medium text-gray-900">
           {t("sign_in_with_health_portal")}
         </h1>
 
