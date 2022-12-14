@@ -113,7 +113,9 @@ export default function UserProfile({
               <div className="divide-slate-300 gap-2">
                 <div className="px-4 py-3 grid grid-cols-2">
                   <div className="flex justify-start">{t("email_address")}</div>
-                  <div className="flex justify-end">{userInfo?.email}</div>
+                  <div className="flex justify-end">
+                    {userInfo?.email_verified ?? userInfo?.email}
+                  </div>
                 </div>
                 <div className="px-4 py-3 bg-white grid grid-cols-2">
                   <div className="flex justify-start">{t("gender")}</div>
@@ -122,7 +124,9 @@ export default function UserProfile({
                 <div className="px-4 py-3 grid grid-cols-2">
                   <div className="flex justify-start">{t("phone_number")}</div>
                   <div className="flex justify-end">
-                    {userInfo?.phone_number}
+                    {userInfo?.phone_number_verified ??
+                      userInfo?.phone ??
+                      userInfo?.phone_number}
                   </div>
                 </div>
                 <div className="px-4 py-3 bg-white grid grid-cols-2">
