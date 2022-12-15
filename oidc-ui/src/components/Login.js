@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Error } from "../common/Errors";
 import { useTranslation } from "react-i18next";
+import RedirectButton from "../common/RedirectButton";
 
 export default function Login({ clientService, i18nKeyPrefix = "login" }) {
   const { t } = useTranslation("translation", {
@@ -70,20 +71,11 @@ export default function Login({ clientService, i18nKeyPrefix = "login" }) {
           </div>
           <div className="flex-1 h-px bg-black" />
         </div>
-        <a
-          href={uri_idp_UI}
-          className="w-full font-medium text-blue-600 hover:text-blue-500"
-        >
-          <button
-            type="button"
-            className="relative w-full text-black bg-gray-50 shadow-lg hover:bg-gray-100  font-medium rounded-lg text-sm px-5 py-2.5 flex items-center mr-2 mb-2"
-          >
-            {t("sign_in_with_mosip")}
-            <div className="flex absolute inset-y-0 right-0 items-center pr-3 pointer-events-none">
-              <img className="flex mr-1 ml-1 w-6 h-6" src="mosip_logo.png" />
-            </div>
-          </button>
-        </a>
+        <RedirectButton
+          uri_idp_UI={uri_idp_UI}
+          text={t("sign_in_with_mosip")}
+          logoPath="mosip_logo.png"
+        />
         <div className="flex flex-justify mt-5 w-full items-center text-center">
           <p className="w-full text-center">
             {t("dont_have_existing_account")}&nbsp;

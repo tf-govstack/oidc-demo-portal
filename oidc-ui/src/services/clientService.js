@@ -25,7 +25,6 @@ const getURI = (redirect_uri, scope) => {
   let prompt = clientDetails.prompt;
   let maxAge = clientDetails.max_age;
   let claimsLocales = clientDetails.claims_locales;
-  let uiLocales = clientDetails.ui_locales;
   let uibaseUrl = clientDetails.uibaseUrl;
   let authorizeEndpoint = clientDetails.authorizeEndpoint;
 
@@ -55,9 +54,7 @@ const getURI = (redirect_uri, scope) => {
     "&max_age=" +
     maxAge +
     "&claims_locales=" +
-    claimsLocales +
-    "&ui_locales=" +
-    uiLocales;
+    claimsLocales;
 
   return uri_idp_UI;
 };

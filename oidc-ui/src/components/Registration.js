@@ -5,6 +5,7 @@ import clientDetails from "../constants/clientDetails";
 import { LoadingStates as states } from "../constants/states";
 import LoadingIndicator from "../common/LoadingIndicator";
 import { useTranslation } from "react-i18next";
+import RedirectButton from "../common/RedirectButton";
 
 export default function Registration({
   cryptoService,
@@ -145,20 +146,11 @@ export default function Registration({
         </div>
 
         <div className="flex grid grid-cols-2 gap-2 w-full">
-          <a
-            href={uri_idp_UI}
-            className="w-full font-medium text-blue-600 hover:text-blue-500"
-          >
-            <button
-              type="button"
-              className="relative w-full text-black bg-gray-50 shadow-lg hover:bg-gray-100  font-medium rounded-lg text-sm px-5 py-2.5 flex items-center mr-2 mb-2"
-            >
-              {t("fetch_details")}
-              <div className="flex absolute inset-y-0 right-0 items-center pr-3 pointer-events-none">
-                <img className="flex mr-1 ml-1 w-6 h-6" src="mosip_logo.png" />
-              </div>
-            </button>
-          </a>
+          <RedirectButton
+            uri_idp_UI={uri_idp_UI}
+            text={t("fetch_details")}
+            logoPath="mosip_logo.png"
+          />
           <button
             type="button"
             className="w-full justify-center text-white bg-[#2F8EA3] hover:bg-[#2F8EA3]/90 font-medium rounded-lg text-sm px-5 py-2.5 flex items-center mr-2 mb-2"
