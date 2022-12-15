@@ -1,13 +1,28 @@
 import React, { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { Error } from "../common/Errors";
-import { clientDetails } from "../constants/clientDetails";
-import { generateSignedJwt } from "../services/cryptoService";
+import clientDetails from "../constants/clientDetails";
 import { LoadingStates as states } from "../constants/states";
 import LoadingIndicator from "../common/LoadingIndicator";
-import { post_fetchUserInfo } from "../services/oidcService";
+import { useTranslation } from "react-i18next";
 
-export default function UserProfile() {
+export default function UserProfile({
+  cryptoService,
+  oidcService,
+  i18nKeyPrefix = "userprofile",
+}) {
+  const { t } = useTranslation("translation", {
+    keyPrefix: i18nKeyPrefix,
+  });
+
+  const { generateSignedJwt } = {
+    ...cryptoService,
+  };
+
+  const { post_fetchUserInfo } = {
+    ...oidcService,
+  };
+
   const [searchParams, setSearchParams] = useSearchParams();
   const [error, setError] = useState({ errorCode: "", errorMsg: "" });
   const [userInfo, setUserInfo] = useState(null);
@@ -30,7 +45,6 @@ export default function UserProfile() {
       } else {
         setError({
           errorCode: "authCode_missing",
-          errorMsg: "AuthCode Missing",
         });
         setStatus(states.ERROR);
         return;
@@ -46,7 +60,7 @@ export default function UserProfile() {
 
     try {
       let client_id = clientDetails.clientId;
-      let redirect_uri = clientDetails.redirect_uri;
+      let redirect_uri = clientDetails.redirect_uri_userprofile;
       let grant_type = clientDetails.grant_type;
       let client_assertion_type = clientDetails.client_assertion_type;
       let client_assertion = await generateSignedJwt(client_id);
@@ -69,24 +83,24 @@ export default function UserProfile() {
 
   let el = (
     <div className="w-full pt-5">
-      <div className="flex-grow bg-[#F2F4F4] mb-6 shadow-lg rounded">
+      <div className="flex-grow bg-[#F2F4F4] mt-8 mb-6 shadow-lg rounded">
         <div className="py-10">
           {status === states.LOADING && (
-            <LoadingIndicator size="medium" message={"Loading! Please wait."} />
+            <LoadingIndicator size="medium" message={t("loading_msg")} />
           )}
           {status === states.LOADED && (
             <>
               <div className="px-4">
                 <div className="font-bold flex justify-center">
-                  {userInfo?.given_name}
+                  {userInfo?.given_name ?? userInfo?.name}
                 </div>
                 <div className="font-bold flex justify-center">
-                  Welcome to Health services
+                  {t("welcome_msg")}
                 </div>
               </div>
               <div className=" px-3 py-6 flex justify-center">
                 <img
-                  alt="profile picture"
+                  alt={t("profile_picture")}
                   className="h-20 w-20"
                   src={
                     userInfo?.picture
@@ -98,32 +112,26 @@ export default function UserProfile() {
 
               <div className="divide-slate-300 gap-2">
                 <div className="px-4 py-3 grid grid-cols-2">
-                  <div className="flex justify-start">
-                    Email Address
-                  </div>
+                  <div className="flex justify-start">{t("email_address")}</div>
                   <div className="flex justify-end">
-                    {userInfo?.email}
+                    {userInfo?.email_verified ?? userInfo?.email}
                   </div>
                 </div>
                 <div className="px-4 py-3 bg-white grid grid-cols-2">
-                  <div className="flex justify-start">Gender</div>
-                  <div className="flex justify-end">
-                    {userInfo?.gender}
-                  </div>
+                  <div className="flex justify-start">{t("gender")}</div>
+                  <div className="flex justify-end">{userInfo?.gender}</div>
                 </div>
                 <div className="px-4 py-3 grid grid-cols-2">
-                  <div className="flex justify-start">
-                    Phone number
-                  </div>
+                  <div className="flex justify-start">{t("phone_number")}</div>
                   <div className="flex justify-end">
-                    {userInfo?.phone_number}
+                    {userInfo?.phone_number_verified ??
+                      userInfo?.phone ??
+                      userInfo?.phone_number}
                   </div>
                 </div>
                 <div className="px-4 py-3 bg-white grid grid-cols-2">
-                  <div className="flex justify-start">Birth Date</div>
-                  <div className="flex justify-end">
-                    {userInfo?.birthdate}
-                  </div>
+                  <div className="flex justify-start">{t("birth_date")}</div>
+                  <div className="flex justify-end">{userInfo?.birthdate}</div>
                 </div>
               </div>
             </>

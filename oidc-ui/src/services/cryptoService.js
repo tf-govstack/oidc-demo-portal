@@ -38,4 +38,9 @@ const decodeJWT = async (signed_jwt) => {
   return data;
 };
 
-export { generateSignedJwt, decodeJWT };
+const cryptoService = {
+  generateSignedJwt,
+  decodeJWT,
+};
+
+export default cryptoService;

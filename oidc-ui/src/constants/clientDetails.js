@@ -1,7 +1,8 @@
 const state = "eree2311";
 const nonce = "ere973eieljznge2311";
 const responseType = "code";
-const scope = "openid profile";
+const scopeUserProfile = window._env_.SCOPE_USER_PROFILE ?? "openid profile";
+const scopeRegistration = window._env_.SCOPE_REGISTRATION ?? "openid profile";
 const display = "page";
 const prompt = "consent";
 const grantType = "authorization_code";
@@ -9,18 +10,27 @@ const clientAssertionType =
   "urn:ietf:params:oauth:client-assertion-type:jwt-bearer";
 const maxAge = "21";
 const claimsLocales = "en";
-const uiLocales = "en";
+const authorizeEndpoint = "/authorize";
+const clientId = window._env_.CLIENT_ID;
+const uibaseUrl = window._env_.IDP_UI_BASE_URL;
+const redirect_uri_userprofile =
+  window._env_.REDIRECT_URI_USER_PROFILE ?? window._env_.REDIRECT_URI;
+const redirect_uri_registration =
+  window._env_.REDIRECT_URI_REGISTRATION ?? window._env_.REDIRECT_URI;
+const acr_values = window._env_.ACRS;
 
-const clientDetails_healthservices = {
+const clientDetails = {
   nonce: nonce,
   state: state,
-  clientId: window._env_.CLIENT_ID,
-  scope: scope,
+  clientId: clientId,
+  scopeUserProfile: scopeUserProfile,
+  scopeRegistration: scopeRegistration,
   response_type: responseType,
-  redirect_uri: window._env_.REDIRECT_URI,
+  redirect_uri_userprofile: redirect_uri_userprofile,
+  redirect_uri_registration: redirect_uri_registration,
   display: display,
   prompt: prompt,
-  acr_values: window._env_.ACRS,
+  acr_values: acr_values,
   claims: {
     userinfo: {
       given_name: {
@@ -48,7 +58,8 @@ const clientDetails_healthservices = {
   max_age: maxAge,
   grant_type: grantType,
   client_assertion_type: clientAssertionType,
-  ui_locales: uiLocales,
+  uibaseUrl: uibaseUrl,
+  authorizeEndpoint: authorizeEndpoint,
 };
 
-export { clientDetails_healthservices as clientDetails };
+export default clientDetails;
