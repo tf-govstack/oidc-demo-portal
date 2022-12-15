@@ -92,7 +92,7 @@ export default function UserProfile({
             <>
               <div className="px-4">
                 <div className="font-bold flex justify-center">
-                  {userInfo?.given_name}
+                  {userInfo?.given_name ?? userInfo?.name}
                 </div>
                 <div className="font-bold flex justify-center">
                   {t("welcome_msg")}
