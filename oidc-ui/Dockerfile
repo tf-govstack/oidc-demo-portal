@@ -1,20 +1,16 @@
 FROM node:12.18.4-alpine as build
 
 ARG idp_ui_base_url
-ARG idp_api_base_url
 ARG oidc_base_url
 ARG redirect_uri
 ARG client_id
 ARG acrs
-ARG private_key
 
 ENV IDP_UI_BASE_URL=$idp_ui_base_url
-ENV IDP_API_URL=$idp_api_base_url
 ENV OIDC_BASE_URL=$oidc_base_url
 ENV REDIRECT_URI=$redirect_uri
 ENV CLIENT_ID=$client_id
 ENV ACRS=$acrs
-ENV PRIVATE_KEY=$private_key
 
 
 ## oidc demo portal
@@ -54,10 +50,10 @@ COPY --from=build /app/build /usr/share/nginx/html
 
 # install packages and create user
 RUN apt-get -y update \
-&& groupadd -g ${container_user_gid} ${container_user_group} \
-&& useradd -u ${container_user_uid} -g ${container_user_group} -s /bin/sh -m ${container_user} \
-&& mkdir -p /var/run/nginx /var/tmp/nginx \
-&& chown -R ${container_user}:${container_user} /usr/share/nginx /var/run/nginx /var/tmp/nginx
+    && groupadd -g ${container_user_gid} ${container_user_group} \
+    && useradd -u ${container_user_uid} -g ${container_user_group} -s /bin/sh -m ${container_user} \
+    && mkdir -p /var/run/nginx /var/tmp/nginx \
+    && chown -R ${container_user}:${container_user} /usr/share/nginx /var/run/nginx /var/tmp/nginx
 
 ENV work_dir=/usr/share/nginx/html
 

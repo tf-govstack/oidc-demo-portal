@@ -53,7 +53,8 @@
     "address": "Address",
     "fetch_details": "Fetch details from MOSIP",
     "register": "Register",
-    "loading_msg": "Loading! Please wait..."
+    "loading_msg": "Loading! Please wait...",
+    "phone_number": "Phone number"
   },
   "errors": {
     "sign_in_failed": "Authentication failed! Try sign in with MOSIP",

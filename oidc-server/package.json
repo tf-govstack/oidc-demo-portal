@@ -5,8 +5,8 @@
   "main": "script.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "SET PORT=8888 && SET IDP_BASE_URL=http://localhost:8088/v1/idp && node app.js",
-    "devstart": "SET PORT=8888 && SET IDP_BASE_URL=http://localhost:8088/v1/idp && node app.js && nodemon ."
+    "start": "node app.js",
+    "devstart": "node app.js && nodemon ."
   },
   "author": "MOSIP",
   "license": "MIT",
@@ -14,6 +14,7 @@
     "axios": "^1.1.3",
     "express": "^4.18.2",
     "joi": "^17.7.0",
+    "jose": "^4.11.1",
     "nodemon": "^2.0.20"
   }
 }

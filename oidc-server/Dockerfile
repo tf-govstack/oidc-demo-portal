@@ -22,6 +22,8 @@ ARG container_user_uid=1001
 ARG container_user_gid=1001
 
 ARG idp_api_url
+ARG idp_aud_url
+ARG private_key
 
 ENV work_dir=/app
 
@@ -34,6 +36,8 @@ RUN addgroup -g ${container_user_gid} ${container_user} && \
 COPY . ./
 ENV PORT=8888
 ENV IDP_BASE_URL=${idp_api_url}
+ENV IDP_AUD_URL=${idp_aud_url}
+ENV PRIVATE_KEY=${private_key}
 
 # change permissions of file inside working dir
 RUN chown -R ${container_user}:${container_user} ${work_dir}

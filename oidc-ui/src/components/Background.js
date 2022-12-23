@@ -18,7 +18,7 @@ export default function Background({
   const navList = [
     { label: "home", url: "#" },
     { label: "polices", url: "#" },
-    { label: "registration", url: "/registration" },
+    { label: "registration", url: "#" },
     { label: "gov_circulars", url: "#" },
     { label: "recruitment", url: "#" },
     { label: "about_us", url: "#" },
