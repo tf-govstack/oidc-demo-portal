@@ -6,8 +6,6 @@ const scopeRegistration = window._env_.SCOPE_REGISTRATION ?? "openid profile";
 const display = "page";
 const prompt = "consent";
 const grantType = "authorization_code";
-const clientAssertionType =
-  "urn:ietf:params:oauth:client-assertion-type:jwt-bearer";
 const maxAge = "21";
 const claimsLocales = "en";
 const authorizeEndpoint = "/authorize";
@@ -57,7 +55,6 @@ const clientDetails = {
   claims_locales: claimsLocales,
   max_age: maxAge,
   grant_type: grantType,
-  client_assertion_type: clientAssertionType,
   uibaseUrl: uibaseUrl,
   authorizeEndpoint: authorizeEndpoint,
 };

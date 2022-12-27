@@ -16,13 +16,13 @@ export default function Background({
   };
 
   const navList = [
-    "home",
-    "polices",
-    "departments",
-    "gov_circulars",
-    "recruitment",
-    "about_us",
-    "contact_us",
+    { label: "home", url: "#" },
+    { label: "polices", url: "#" },
+    { label: "registration", url: "#" },
+    { label: "gov_circulars", url: "#" },
+    { label: "recruitment", url: "#" },
+    { label: "about_us", url: "#" },
+    { label: "contact_us", url: "#" },
   ];
 
   const [langOptions, setLangOptions] = useState([]);
@@ -89,15 +89,15 @@ export default function Background({
           <div className="bg-[#2F8EA3] border-gray-200 px-2 sm:px-4 py-3 rounded">
             <div className="flex items-center">
               <div className="flex w-full justify-evenly space-x-8 text-xl font-medium">
-                {navList.map((element) => {
+                {navList.map((nav) => {
                   return (
-                    <div key={element}>
+                    <div key={nav.label}>
                       <a
-                        href="#"
+                        href={window.origin + nav.url}
                         className="text-gray-900 text-white hover:underline"
                         aria-current="page"
                       >
-                        {t(element)}
+                        {t(nav.label)}
                       </a>
                     </div>
                   );

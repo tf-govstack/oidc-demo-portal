@@ -16,17 +16,13 @@ const post_fetchUserInfo = async (
   code,
   client_id,
   redirect_uri,
-  grant_type,
-  client_assertion_type,
-  client_assertion
+  grant_type
 ) => {
   let request = {
     code: code,
     client_id: client_id,
     redirect_uri: redirect_uri,
-    grant_type: grant_type,
-    client_assertion_type: client_assertion_type,
-    client_assertion: client_assertion,
+    grant_type: grant_type
   };
 
   const endpoint = baseUrl + fetchUserInfoEndPoint;

@@ -8,7 +8,6 @@ import { useTranslation } from "react-i18next";
 import RedirectButton from "../common/RedirectButton";
 
 export default function Registration({
-  cryptoService,
   clientService,
   oidcService,
   i18nKeyPrefix = "registration",
@@ -19,10 +18,6 @@ export default function Registration({
 
   const { getURIforRegistration } = {
     ...clientService,
-  };
-
-  const { generateSignedJwt } = {
-    ...cryptoService,
   };
 
   const { post_fetchUserInfo } = {
@@ -75,16 +70,12 @@ export default function Registration({
       let client_id = clientDetails.clientId;
       let redirect_uri = clientDetails.redirect_uri_registration;
       let grant_type = clientDetails.grant_type;
-      let client_assertion_type = clientDetails.client_assertion_type;
-      let client_assertion = await generateSignedJwt(client_id);
 
       var userInfo = await post_fetchUserInfo(
         authCode,
         client_id,
         redirect_uri,
-        grant_type,
-        client_assertion_type,
-        client_assertion
+        grant_type
       );
       setUserInfo(userInfo);
       setStatus(states.LOADED);
@@ -96,8 +87,8 @@ export default function Registration({
 
   return (
     <>
-      <div className="w-full px-50">
-        <h1 className="w-full text-center title-font sm:text-3xl text-3xl mt-4 mb-4 font-medium text-gray-900">
+      <div className="w-full px-16">
+        <h1 className="w-full text-center title-font sm:text-3xl text-3xl mt-8 mb-8 font-medium text-gray-900">
           {t("child_registration")}
         </h1>
 
@@ -106,7 +97,7 @@ export default function Registration({
             <label>{t("full_name")}</label>
             <input
               type="text"
-              value={userInfo?.given_name}
+              value={userInfo?.given_name ?? userInfo?.name}
               className="rounded bg-gray-50 border text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 text-sm border-gray-300 p-2.5"
             />
           </div>
@@ -125,14 +116,17 @@ export default function Registration({
             <input
               type="text"
               value={userInfo?.birthdate}
-              className="rounded-none rounded-r-lg bg-gray-50 border text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 text-sm border-gray-300 p-2.5"
+              className="rounded bg-gray-50 border text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 text-sm border-gray-300 p-2.5"
             />
           </div>
           <div className="w-full flex flex-col mb-6 text-slate-500">
-            <label>{t("city")}</label>
+            <label>{t("phone_number")}</label>
             <input
               type="text"
               className="rounded bg-gray-50 border text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 text-sm border-gray-300 p-2.5"
+              value={userInfo?.phone_number_verified ??
+                userInfo?.phone ??
+                userInfo?.phone_number}
             />
           </div>
         </div>
@@ -141,16 +135,12 @@ export default function Registration({
           <input
             type="text"
             value={userInfo?.address}
-            className="rounded-none rounded-r-lg bg-gray-50 border text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 text-sm border-gray-300 p-2.5"
+            className="rounded bg-gray-50 border text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 text-sm border-gray-300 p-2.5"
           />
         </div>
 
-        <div className="flex grid grid-cols-2 gap-2 w-full">
-          <RedirectButton
-            uri_idp_UI={uri_idp_UI}
-            text={t("fetch_details")}
-            logoPath="mosip_logo.png"
-          />
+
+        <div className="">
           <button
             type="button"
             className="w-full justify-center text-white bg-[#2F8EA3] hover:bg-[#2F8EA3]/90 font-medium rounded-lg text-sm px-5 py-2.5 flex items-center mr-2 mb-2"
@@ -158,6 +148,11 @@ export default function Registration({
           >
             {t("register")}
           </button>
+          <RedirectButton
+            uri_idp_UI={uri_idp_UI}
+            text={t("fetch_details")}
+            logoPath="mosip_logo.png"
+          />
         </div>
 
         {status === states.LOADING && (

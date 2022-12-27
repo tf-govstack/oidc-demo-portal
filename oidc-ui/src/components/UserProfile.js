@@ -7,17 +7,12 @@ import LoadingIndicator from "../common/LoadingIndicator";
 import { useTranslation } from "react-i18next";
 
 export default function UserProfile({
-  cryptoService,
   oidcService,
   i18nKeyPrefix = "userprofile",
 }) {
   const { t } = useTranslation("translation", {
     keyPrefix: i18nKeyPrefix,
   });
-
-  const { generateSignedJwt } = {
-    ...cryptoService,
-  };
 
   const { post_fetchUserInfo } = {
     ...oidcService,
@@ -62,17 +57,12 @@ export default function UserProfile({
       let client_id = clientDetails.clientId;
       let redirect_uri = clientDetails.redirect_uri_userprofile;
       let grant_type = clientDetails.grant_type;
-      let client_assertion_type = clientDetails.client_assertion_type;
-      let client_assertion = await generateSignedJwt(client_id);
 
       var userInfo = await post_fetchUserInfo(
         authCode,
         client_id,
         redirect_uri,
-        grant_type,
-        client_assertion_type,
-        client_assertion
-      );
+        grant_type);
       setUserInfo(userInfo);
       setStatus(states.LOADED);
     } catch (errormsg) {
