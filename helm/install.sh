@@ -40,9 +40,9 @@ echo Istio label
 kubectl label ns $NS istio-injection=enabled --overwrite
 
 echo "Build oidc charts"
-cd ./oidc-server
+cd oidc-server
 helm dependency update
-cd ./oidc-ui
+cd ../oidc-ui
 helm dependency update
 
 cd ../

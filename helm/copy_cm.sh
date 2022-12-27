@@ -6,4 +6,4 @@ COPY_UTIL=./copy_cm_func.sh
 DST_NS=idp
 
 
-COPY_UTIL configmap global default $DST_NS
+$COPY_UTIL configmap global default $DST_NS
