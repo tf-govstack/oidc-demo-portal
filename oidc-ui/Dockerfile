@@ -97,7 +97,7 @@ USER ${container_user_uid}:${container_user_gid}
 
 EXPOSE 5000
 
-ENTRYPOINT [ "./configure_start.sh" ]
+#ENTRYPOINT [ "./configure_start.sh" ]
 
 # Start Nginx server
 CMD ["/bin/sh", "-c", "/usr/share/nginx/html/env.sh && nginx -g \"daemon off;\""]
