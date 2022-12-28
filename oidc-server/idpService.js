@@ -60,7 +60,8 @@ const generateSignedJwt = async (clientId) => {
     aud: IDP_AUD_URL,
   };
 
-  const jwkObject = JSON.parse(decodeURI(PRIVATE_KEY));
+  var decodeKey = Buffer.from(PRIVATE_KEY, 'base64')?.toString();
+  const jwkObject = JSON.parse(decodeKey);
   const privateKey = await jose.importJWK(jwkObject, alg);
   // var privateKey = await jose.importPKCS8(PRIVATE_KEY, alg);
 
