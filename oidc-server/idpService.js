@@ -1,6 +1,6 @@
 const axios = require("axios");
 const jose = require("jose");
-const { IDP_BASE_URL, PRIVATE_KEY, IDP_AUD_URL, CLIENT_ASSERTION_TYPE } = require("./config");
+const { IDP_BASE_URL, IDP_AUD_URL, CLIENT_ASSERTION_TYPE, PRIVATE_KEY } = require("./config");
 
 const baseUrl = IDP_BASE_URL.trim();
 const getTokenEndPoint = "/oauth/token";
@@ -24,8 +24,8 @@ const post_GetToken = async ({
     client_assertion: await generateSignedJwt(client_id),
   });
   const endpoint = baseUrl + getTokenEndPoint;
+  console.log(baseUrl)
   console.log(endpoint)
-  console.log(request)
   const response = await axios.post(endpoint, request, {
     headers: {
       "Content-Type": "application/x-www-form-urlencoded",
@@ -59,12 +59,10 @@ const generateSignedJwt = async (clientId) => {
     sub: clientId,
     aud: IDP_AUD_URL,
   };
-  
-  console.log(IDP_AUD_URL)
-  console.log(PRIVATE_KEY)
 
-  // const keyObjFromJwk = await jose.importJWK(public_private_key_jwk, alg);
-  var privateKey = await jose.importPKCS8(PRIVATE_KEY, alg);
+  const jwkObject = JSON.parse(decodeURI(PRIVATE_KEY));
+  const privateKey = await jose.importJWK(jwkObject, alg);
+  // var privateKey = await jose.importPKCS8(PRIVATE_KEY, alg);
 
   const jwt = new jose.SignJWT(payload)
     .setProtectedHeader(header)
