@@ -32,7 +32,7 @@ data:
         gzip_proxied expired no-cache no-store private auth;
         gzip_types text/plain text/css application/json application/javascript application/x-javascript text/xml application/xml application/xml+rss text/javascript;
         location /oidc-server/fetchUserInfo {
-          proxy_pass         http://oidc-server.idp/fetchUserInfo;
+          proxy_pass         {{ .Values.oidc_ui.OIDC_SERVER_INTERNAL_URL }}/fetchUserInfo;
           proxy_redirect     off;
           proxy_set_header   Host $host;
           proxy_set_header   X-Real-IP $remote_addr;
