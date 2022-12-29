@@ -1,20 +1,16 @@
 FROM node:12.18.4-alpine as build
 
 ARG idp_ui_base_url
-ARG idp_api_base_url
 ARG oidc_base_url
 ARG redirect_uri
 ARG client_id
 ARG acrs
-ARG private_key
 
 ENV IDP_UI_BASE_URL=$idp_ui_base_url
-ENV IDP_API_URL=$idp_api_base_url
 ENV OIDC_BASE_URL=$oidc_base_url
 ENV REDIRECT_URI=$redirect_uri
 ENV CLIENT_ID=$client_id
 ENV ACRS=$acrs
-ENV PRIVATE_KEY=$private_key
 
 
 ## oidc demo portal
@@ -64,11 +60,11 @@ WORKDIR /home/${container_user}
 
 # install packages and create user
 RUN apt-get -y update \
-&& apt-get install -y wget unzip zip \
-&& groupadd -g ${container_user_gid} ${container_user_group} \
-&& useradd -u ${container_user_uid} -g ${container_user_group} -s /bin/sh -m ${container_user} \
-&& mkdir -p /var/run/nginx /var/tmp/nginx ${work_dir}/locales\
-&& chown -R ${container_user}:${container_user} /usr/share/nginx /var/run/nginx /var/tmp/nginx ${work_dir}/locales
+    && apt-get install -y wget unzip zip \
+    && groupadd -g ${container_user_gid} ${container_user_group} \
+    && useradd -u ${container_user_uid} -g ${container_user_group} -s /bin/sh -m ${container_user} \
+    && mkdir -p /var/run/nginx /var/tmp/nginx ${work_dir}/locales\
+    && chown -R ${container_user}:${container_user} /usr/share/nginx /var/run/nginx /var/tmp/nginx ${work_dir}/locales
 
 ADD configure_start.sh configure_start.sh
 
@@ -87,7 +83,7 @@ COPY ./env.sh ${work_dir}/env.sh
 # Make our shell script executable
 RUN chmod +x ${work_dir}/env.sh
 
-RUN echo "IDP_UI_BASE_URL=$IDP_UI_BASE_URL" > ${work_dir}/.env && echo "IDP_API_URL=$IDP_API_URL" >> ${work_dir}/.env && echo "OIDC_BASE_URL=$OIDC_BASE_URL" >> ${work_dir}/.env && echo "REDIRECT_URI=$REDIRECT_URI" >> ${work_dir}/.env && echo "CLIENT_ID=$CLIENT_ID" >> ${work_dir}/.env && echo "ACRS=$ACRS" >> ${work_dir}/.env && echo "PRIVATE_KEY=$PRIVATE_KEY" >> ${work_dir}/.env
+RUN echo "IDP_UI_BASE_URL=$IDP_UI_BASE_URL" > ${work_dir}/.env && echo "OIDC_BASE_URL=$OIDC_BASE_URL" >> ${work_dir}/.env && echo "REDIRECT_URI=$REDIRECT_URI" >> ${work_dir}/.env && echo "CLIENT_ID=$CLIENT_ID" >> ${work_dir}/.env && echo "ACRS=$ACRS" >> ${work_dir}/.env
 
 # change permissions of file inside working dir
 RUN chown -R ${container_user}:${container_user} ${work_dir}
