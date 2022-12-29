@@ -117,7 +117,10 @@ spec:
               - secretRef:
                   name: {{ include "common.tplvalues.render" (dict "value" .Values.extraEnvVarsSecret "context" $) }}
               {{- end }}
-
+          volumeMounts:
+            - name: nginx-conf
+              mountPath: /etc/nginx/nginx.conf
+              subPath: nginx.conf
           ports:
             - name: spring-service
               containerPort: {{ .Values.oidc_ui.oidc_ui_port }}
@@ -142,3 +145,10 @@ spec:
         {{- if .Values.sidecars }}
         {{- include "common.tplvalues.render" ( dict "value" .Values.sidecars "context" $) | nindent 8 }}
         {{- end }}
+      volumes:
+        - name: nginx-conf
+          configMap:
+            name: {{ template "common.names.fullname" . }}
+            items:
+              - key: nginx.conf
+                path: nginx.conf
