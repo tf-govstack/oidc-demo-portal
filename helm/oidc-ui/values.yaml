@@ -423,6 +423,7 @@ oidc_ui:
   REDIRECT_URI: https://healthservices.sandbox.xyz.net/userprofile
   CLIENT_ID: 88Vjt34c5Twz1oJ
   ACRS: mosip:idp:acr:generated-code%20mosip:idp:acr:biometrics%20mosip:idp:acr:static-code
+  OIDC_SERVER_INTERNAL_URL: http://oidc-server.idp
 
 ## oidc UI swagger should have only internal access. Hence linked to internal gateway
 ## We create a gateway for oidc specific URL(s) listed under `hosts`
