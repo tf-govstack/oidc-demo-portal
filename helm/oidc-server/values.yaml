@@ -71,7 +71,8 @@ oidc_server:
   oidc_serverMountDIr: /home/mosip/oidc/
   puburl:
   privurl:
-  IDP_BASE_URL: http://idp.idp/v1/idp
+  IDP_BASE_URL: https://api.sandbox.xyz.net/v1/idp
+  IDP_AUD_URL: https://api.sandbox.xyz.net/v1/idp/oauth/token
 ## Port on which this particular spring service module is running.
 containerPort: 8888
 

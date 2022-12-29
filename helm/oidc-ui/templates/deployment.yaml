@@ -95,8 +95,6 @@ spec:
               value: {{ .Values.additionalResources.javaOpts }}
             - name: IDP_UI_BASE_URL
               value: {{ .Values.oidc_ui.IDP_UI_BASE_URL }}
-            - name: IDP_API_URL
-              value: {{ .Values.oidc_ui.IDP_API_URL }}
             - name: OIDC_BASE_URL
               value: {{ .Values.oidc_ui.OIDC_BASE_URL }}
             - name: REDIRECT_URI
@@ -105,11 +103,6 @@ spec:
               value: {{ .Values.oidc_ui.CLIENT_ID }}
             - name: ACRS
               value: {{ .Values.oidc_ui.ACRS }}
-            - name: PRIVATE_KEY
-              valueFrom:
-                secretKeyRef:
-                  key: private-key
-                  name: oidc-ui-secrets
             {{- if .Values.extraEnvVars }}
             {{- include "common.tplvalues.render" (dict "value" .Values.extraEnvVars "context" $) | nindent 12 }}
             {{- end }}

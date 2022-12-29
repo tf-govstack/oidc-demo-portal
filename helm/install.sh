@@ -50,23 +50,24 @@ cd ../
 echo "Copy configmaps"
 ./copy_cm.sh
 
-echo "Create secret for oidc-ui-secrets, delete if exists"
+echo "Create secret for oidc-server-secrets, delete if exists"
 cat "$PRIVATE_KEY" | sed "s/'//g" | sed -z 's/\n/\\n/g' > /tmp/private-key
 
-kubectl -n $NS delete --ignore-not-found=true secrets oidc-ui-secrets
-kubectl -n $NS create secret generic oidc-ui-secrets --from-file="/tmp/private-key"
+kubectl -n $NS delete --ignore-not-found=true secrets oidc-server-secrets
+kubectl -n $NS create secret generic oidc-server-secrets --from-file="/tmp/private-key"
 
 API_HOST=$(kubectl get cm global -o jsonpath={.data.mosip-api-host})
 IDP_HOST=$(kubectl get cm global -o jsonpath={.data.mosip-idp-host})
 
 echo Installing OIDC Server
-helm -n $NS install oidc-server ./oidc-server
+helm -n $NS install oidc-server ./oidc-server \
+    --set oidc_server.IDP_BASE_URL="https://$API_HOST"/v1/idp"" \
+    --set oidc_server.IDP_AUD_URL="https://$API_HOST"/v1/idp/oauth/token""
 
 echo Installing OIDC UI
 helm -n $NS install oidc-ui ./oidc-ui \
     --set oidc_ui.oidc_service_host="$OIDC_HOST" \
     --set oidc_ui.IDP_UI_BASE_URL="https://$IDP_HOST" \
-    --set oidc_ui.IDP_API_URL="https://$API_HOST"/v1/idp"" \
     --set oidc_ui.OIDC_BASE_URL="https://$OIDC_HOST/oidc-server" \
     --set oidc_ui.REDIRECT_URI="https://$OIDC_HOST/userprofile" \
     --set istio.hosts\[0\]="$OIDC_HOST"
