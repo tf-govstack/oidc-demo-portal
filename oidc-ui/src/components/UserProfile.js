@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { Error } from "../common/Errors";
 import clientDetails from "../constants/clientDetails";
 import { LoadingStates as states } from "../constants/states";
@@ -23,6 +23,20 @@ export default function UserProfile({
   const [userInfo, setUserInfo] = useState(null);
   const [status, setStatus] = useState(states.LOADING);
 
+  const navigate = useNavigate();
+
+  const navigateToLogin = (errorCode, errorDescription) => {
+    let params = "?";
+    if (errorDescription) {
+      params = params + "error_description=" + errorDescription + "&";
+    }
+
+    //REQUIRED
+    params = params + "error=" + errorCode;
+
+    navigate("/" + params, { replace: true });
+  };
+
   useEffect(() => {
     const getSearchParams = async () => {
       let authCode = searchParams.get("code");
@@ -30,8 +44,7 @@ export default function UserProfile({
       let error_desc = searchParams.get("error_description");
 
       if (errorCode) {
-        setError({ errorCode: errorCode, errorMsg: error_desc });
-        setStatus(states.ERROR);
+        navigateToLogin(errorCode, error_desc);
         return;
       }
 

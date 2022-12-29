@@ -1,4 +1,5 @@
 import { useTranslation } from "react-i18next";
+import { toast } from "react-toastify";
 
 /**
  * @param {string} errorCode is a key from locales file under errors namespace
@@ -6,8 +7,14 @@ import { useTranslation } from "react-i18next";
  * If errorMsg is not passed then errorCode key itself became the fallback value.
  */
 
-const Error = ({ errorCode, errorMsg, i18nKeyPrefix = "errors" }) => {
+const Error = ({ errorCode, errorMsg, i18nKeyPrefix = "errors", showToast = false }) => {
   const { t } = useTranslation("translation", { keyPrefix: i18nKeyPrefix });
+  const toastTimeout = process.env.REACT_APP_TOAST_TIMEOUT_IN_SEC;
+
+  if (showToast) {
+    toast.error(t(errorCode, errorMsg), { autoClose: toastTimeout * 1000 })
+    return <></>
+  }
 
   return (
     <div

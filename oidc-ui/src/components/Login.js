@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Error } from "../common/Errors";
 import { useTranslation } from "react-i18next";
 import RedirectButton from "../common/RedirectButton";
+import { useSearchParams } from "react-router-dom";
 
 export default function Login({ clientService, i18nKeyPrefix = "login" }) {
   const { t } = useTranslation("translation", {
@@ -12,8 +13,21 @@ export default function Login({ clientService, i18nKeyPrefix = "login" }) {
     ...clientService,
   };
 
+  const [searchParams, setSearchParams] = useSearchParams();
   const [error, setError] = useState(null);
   const uri_idp_UI = getURIforSignIn();
+
+  useEffect(() => {
+    const getSearchParams = async () => {
+      let errorCode = searchParams.get("error");
+      let error_desc = searchParams.get("error_description");
+
+      if (errorCode) {
+        setError({ errorCode: errorCode, errorMsg: error_desc, showToast: true });
+      }
+    };
+    getSearchParams();
+  }, []);
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -61,7 +75,7 @@ export default function Login({ clientService, i18nKeyPrefix = "login" }) {
         </button>
 
         {error && (
-          <Error errorCode={error.errorCode} errorMsg={error.errorMsg} />
+          <Error errorCode={error.errorCode} errorMsg={error.errorMsg} showToast={error.showToast} />
         )}
 
         <div className="flex w-full mb-6 mt-6 items-center px-10">
