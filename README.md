@@ -1,10 +1,12 @@
-# OIDC demo portal
+# OIDC Demo Portal
 
 ## Overview
-This repository contains the source code OIDC portal UI and Server. OIDC portal is a reference implementation of a relying party's website that wants to use [MOSIP IDP services](https://github.com/mosip/idp) as the identity provider.
+This repository contains the reference implementation of a relying party's website that wants to use [MOSIP's IDP (Identity Provider) services](https://github.com/mosip/idp) to log in users into its portal.
 
-OIDC demo portal uses [OpenID specs](https://openid.net/specs/openid-connect-core-1_0.html) to communicate with MOSIP IDP services
+This portal uses [OpenID specs](https://openid.net/specs/openid-connect-core-1_0.html) to communicate with [MOSIP IDP Services](https://github.com/mosip/idp).
 
-OIDC portal contains 2 pages.
-1. Home page: This page represents a login page of a relying party. This page include a button with text "Sign in with MOSIP". On the click this button, the user gets navigated to [MOSIP IDP Portal](https://idp.dev.mosip.net/login). User will be authenticated and will provide consent to share information from MOSIP to relying party, on IDP protal.
-2. UserProfile Page: This page represents a user profile on the relying party website. On successfully authentication and consent approval, the user gets navigated here with an auth code. This auth code will be shared to the OIDC-Server(backend) via /fetchUserInfo endpoint. The backend then uses this auth code to fetch access token and user details from MOSIP IDP services.
+This portal contains 2 pages.
+
+1. **Home Page**: This page represents the login screen for the relying party's website. This page includes a button with the text, "Sign in with MOSIP". On the click this button, the user gets redirected to the MOSIP's IDP Portal. The user now has to authenticate and provide consent to share information from MOSIP to relying party, on the IDP portal.
+
+2. **User Profile Page**: This page shows the user profile on the relying party's website. On successful authentication and consent approval, the user gets navigated to this page with an Auth Code. This Auth Code would be shared with the relying party's backend service via the `/fetchUserInfo` endpoint. The backend then uses the Auth Code to fetch the access token and user details from MOSIP IDP services.
