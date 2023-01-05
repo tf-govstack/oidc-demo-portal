@@ -3,24 +3,25 @@ import clientDetails from "../constants/clientDetails";
 const getURIforSignIn = () => {
   return getURI(
     clientDetails.redirect_uri_userprofile,
-    clientDetails.scopeUserProfile
+    clientDetails.scopeUserProfile,
+    clientDetails.userProfileClaims
   );
 };
 
 const getURIforRegistration = () => {
   return getURI(
     clientDetails.redirect_uri_registration,
-    clientDetails.scopeRegistration
+    clientDetails.scopeRegistration,
+    clientDetails.registrationClaims
   );
 };
 
-const getURI = (redirect_uri, scope) => {
+const getURI = (redirect_uri, scope, encodedClaims) => {
   let nonce = clientDetails.nonce;
   let state = clientDetails.state;
   let clientId = clientDetails.clientId;
   let response_type = clientDetails.response_type;
   let acr_values = clientDetails.acr_values;
-  let encodedClaims = encodeURI(JSON.stringify(clientDetails.claims));
   let display = clientDetails.display;
   let prompt = clientDetails.prompt;
   let maxAge = clientDetails.max_age;

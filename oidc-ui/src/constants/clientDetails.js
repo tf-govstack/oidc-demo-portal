@@ -16,6 +16,37 @@ const redirect_uri_userprofile =
 const redirect_uri_registration =
   window._env_.REDIRECT_URI_REGISTRATION ?? window._env_.REDIRECT_URI;
 const acr_values = window._env_.ACRS;
+const userProfileClaims =
+  window._env_.CLAIMS_USER_PROFILE;
+const registrationClaims =
+  window._env_.CLAIMS_REGISTRATION;
+
+const claims = {
+  userinfo: {
+    given_name: {
+      essential: true,
+    },
+    phone_number: {
+      essential: false,
+    },
+    email: {
+      essential: true,
+    },
+    picture: {
+      essential: false,
+    },
+    gender: {
+      essential: false,
+    },
+    birthdate: {
+      essential: false,
+    },
+    address: {
+      essential: false,
+    },
+  },
+  id_token: {},
+}
 
 const clientDetails = {
   nonce: nonce,
@@ -29,34 +60,13 @@ const clientDetails = {
   display: display,
   prompt: prompt,
   acr_values: acr_values,
-  claims: {
-    userinfo: {
-      given_name: {
-        essential: true,
-      },
-      phone_number: {
-        essential: false,
-      },
-      email: {
-        essential: true,
-      },
-      picture: {
-        essential: false,
-      },
-      gender: {
-        essential: false,
-      },
-      birthdate: {
-        essential: false,
-      },
-    },
-    id_token: {},
-  },
   claims_locales: claimsLocales,
   max_age: maxAge,
   grant_type: grantType,
   uibaseUrl: uibaseUrl,
   authorizeEndpoint: authorizeEndpoint,
+  userProfileClaims: userProfileClaims ?? encodeURI(JSON.stringify(claims)),
+  registrationClaims: registrationClaims ?? encodeURI(JSON.stringify(claims))
 };
 
 export default clientDetails;

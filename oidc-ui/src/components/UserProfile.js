@@ -136,6 +136,10 @@ export default function UserProfile({
                   <div className="flex justify-start">{t("birth_date")}</div>
                   <div className="flex justify-end">{userInfo?.birthdate}</div>
                 </div>
+                <div className="px-4 py-3 grid grid-cols-2">
+                  <div className="flex justify-start">{t("address")}</div>
+                  <div className="flex justify-end">{userInfo?.address}</div>
+                </div>
               </div>
             </>
           )}
