@@ -22,6 +22,7 @@ export default function UserProfile({
   const [error, setError] = useState({ errorCode: "", errorMsg: "" });
   const [userInfo, setUserInfo] = useState(null);
   const [status, setStatus] = useState(states.LOADING);
+  const [showRawUserInfo, setShowRawUserInfo] = useState(false);
 
   const navigate = useNavigate();
 
@@ -140,6 +141,18 @@ export default function UserProfile({
                   <div className="flex justify-start">{t("address")}</div>
                   <div className="flex justify-end">{userInfo?.address}</div>
                 </div>
+              </div>
+              <div className="px-4">
+                <button
+                  type="button"
+                  className="font-medium text-cyan-700 hover:underline"
+                  onClick={(e) => { e.preventDefault(); setShowRawUserInfo(!showRawUserInfo) }}
+                >
+                  {showRawUserInfo ? t("hide_raw_user_info") : t("show_raw_user_info")}
+                </button>
+                {showRawUserInfo && (
+                  <p className="break-words">{JSON.stringify(userInfo)}</p>
+                )}
               </div>
             </>
           )}
