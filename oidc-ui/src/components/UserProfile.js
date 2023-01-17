@@ -86,7 +86,7 @@ export default function UserProfile({
   };
 
   let el = (
-    <div className="w-full pt-5">
+    <div className="w-full pt-5 px-20">
       <div className="flex-grow bg-[#F2F4F4] mt-8 mb-6 shadow-lg rounded">
         <div className="py-10">
           {status === states.LOADING && (
@@ -151,7 +151,7 @@ export default function UserProfile({
                   {showRawUserInfo ? t("hide_raw_user_info") : t("show_raw_user_info")}
                 </button>
                 {showRawUserInfo && (
-                  <p className="break-words">{JSON.stringify(userInfo)}</p>
+                  <p dir="ltr" className="break-words">{JSON.stringify(userInfo)}</p>
                 )}
               </div>
             </>

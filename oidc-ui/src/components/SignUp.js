@@ -28,10 +28,9 @@ export default function SignUp({ clientService, i18nKeyPrefix = "signup" }) {
         <h1 className="w-full text-center title-font sm:text-3xl text-3xl mt-8 mb-8 font-medium text-gray-900">
           {t("sign_up_with_health_portal")}
         </h1>
-
         <div className="flex grid grid-cols-2 gap-2 w-full">
           <div className="w-full flex flex-col mb-6 text-slate-500">
-            <label>{t("first_name")}</label>
+            <label className="flex">{t("first_name")}</label>
             <input
               type="text"
               id="website-admin"
@@ -39,7 +38,7 @@ export default function SignUp({ clientService, i18nKeyPrefix = "signup" }) {
             />
           </div>
           <div className="w-full flex flex-col mb-6 text-slate-500">
-            <label>{t("last_name")}</label>
+            <label className="flex">{t("last_name")}</label>
             <input
               type="text"
               id="website-admin"
@@ -48,7 +47,7 @@ export default function SignUp({ clientService, i18nKeyPrefix = "signup" }) {
           </div>
         </div>
         <div className="w-full flex flex-col mb-6 text-slate-500">
-          <label>{t("password")}</label>
+          <label className="flex">{t("password")}</label>
           <input
             type="text"
             id="website-admin"
