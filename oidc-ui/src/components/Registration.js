@@ -94,7 +94,7 @@ export default function Registration({
 
         <div className="flex grid grid-cols-2 gap-2 w-full">
           <div className="w-full flex flex-col mb-6 text-slate-500">
-            <label>{t("full_name")}</label>
+            <label className="flex">{t("full_name")}</label>
             <input
               type="text"
               value={userInfo?.given_name ?? userInfo?.name}
@@ -102,7 +102,7 @@ export default function Registration({
             />
           </div>
           <div className="w-full flex flex-col mb-6 text-slate-500">
-            <label>{t("gender")}</label>
+            <label className="flex">{t("gender")}</label>
             <input
               type="text"
               value={userInfo?.gender}
@@ -112,7 +112,7 @@ export default function Registration({
         </div>
         <div className="flex grid grid-cols-2 gap-2 w-full">
           <div className="w-full flex flex-col mb-6 text-slate-500">
-            <label>{t("date_of_birth")}</label>
+            <label className="flex">{t("date_of_birth")}</label>
             <input
               type="text"
               value={userInfo?.birthdate}
@@ -120,7 +120,7 @@ export default function Registration({
             />
           </div>
           <div className="w-full flex flex-col mb-6 text-slate-500">
-            <label>{t("phone_number")}</label>
+            <label className="flex">{t("phone_number")}</label>
             <input
               type="text"
               className="rounded bg-gray-50 border text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 text-sm border-gray-300 p-2.5"
@@ -131,7 +131,7 @@ export default function Registration({
           </div>
         </div>
         <div className="w-full flex flex-col mb-6 text-slate-500">
-          <label>{t("address")}</label>
+          <label className="flex">{t("address")}</label>
           <input
             type="text"
             value={userInfo?.address}
