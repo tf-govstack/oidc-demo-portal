@@ -151,7 +151,7 @@ export default function Registration({
           <RedirectButton
             uri_idp_UI={uri_idp_UI}
             text={t("fetch_details")}
-            logoPath="mosip_logo.png"
+            logoPath="esignet_logo.png"
           />
         </div>
 

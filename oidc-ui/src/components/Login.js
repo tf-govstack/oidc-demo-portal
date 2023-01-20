@@ -91,8 +91,8 @@ export default function Login({ clientService, i18nKeyPrefix = "login" }) {
         </div>
         <RedirectButton
           uri_idp_UI={uri_idp_UI}
-          text={t("sign_in_with_mosip")}
-          logoPath="mosip_logo.png"
+          text={t("sign_in_with")}
+          logoPath="esignet_logo.png"
         />
         <div className="flex flex-justify mt-5 w-full items-center text-center">
           <p className="w-full text-center">
