@@ -10,6 +10,14 @@ const alg = "RS256";
 const jweEncryAlgo = "RSA-OAEP-256";
 const expirationTime = "1h";
 
+/**
+ * Triggers /oauth/token API on IDP service to fetch access token
+ * @param {string} code auth code
+ * @param {string} client_id registered client id
+ * @param {string} redirect_uri validated redirect_uri
+ * @param {string} grant_type grant_type
+ * @returns access token
+ */
 const post_GetToken = async ({
   code,
   client_id,
@@ -36,6 +44,11 @@ const post_GetToken = async ({
   return response.data;
 };
 
+/**
+ * Triggers /oidc/userinfo API on IDP service to fetch userInformation
+ * @param {string} access_token valid access token
+ * @returns decrypted/decoded json user information
+ */
 const get_GetUserInfo = async (access_token) => {
   const endpoint = baseUrl + getUserInfoEndPoint;
   const response = await axios.get(endpoint, {
@@ -44,9 +57,14 @@ const get_GetUserInfo = async (access_token) => {
     },
   });
 
-  return decodeResponse(response.data);
+  return decodeUserInfoResponse(response.data);
 };
 
+/**
+ * Generates client assertion signedJWT
+ * @param {string} clientId registered client id
+ * @returns client assertion signedJWT
+ */
 const generateSignedJwt = async (clientId) => {
   // Set headers for JWT
   var header = {
@@ -74,7 +92,12 @@ const generateSignedJwt = async (clientId) => {
   return jwt;
 };
 
-const decodeResponse = async (userInfoResponse) => {
+/**
+ * decrypts and decodes the user information fetched from IDP services
+ * @param {string} userInfoResponse JWE encrypted or JWT encoded user information
+ * @returns decrypted/decoded json user information
+ */
+const decodeUserInfoResponse = async (userInfoResponse) => {
 
   let response = userInfoResponse;
 

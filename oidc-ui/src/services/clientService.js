@@ -1,5 +1,9 @@
 import clientDetails from "../constants/clientDetails";
 
+/**
+ * creates redirect URI for sign in/sign up form
+ * @returns redirect URI for sign in/sign up form
+ */
 const getURIforSignIn = () => {
   return getURI(
     clientDetails.redirect_uri_userprofile,
@@ -8,6 +12,10 @@ const getURIforSignIn = () => {
   );
 };
 
+/**
+ * creates redirect URI for registration form
+ * @returns redirect URI for registration form
+ */
 const getURIforRegistration = () => {
   return getURI(
     clientDetails.redirect_uri_registration,

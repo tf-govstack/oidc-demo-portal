@@ -7,6 +7,14 @@ const baseUrl =
 
 const fetchUserInfoEndPoint = "/fetchUserInfo";
 
+/**
+ * Triggers /fetchUserInfo API on relying party server
+ * @param {string} code auth code
+ * @param {string} client_id registered client id
+ * @param {string} redirect_uri validated redirect_uri
+ * @param {string} grant_type grant_type
+ * @returns decode/decrypted user information json
+ */
 const post_fetchUserInfo = async (
   code,
   client_id,
