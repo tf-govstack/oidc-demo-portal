@@ -1,9 +1,4 @@
 import axios from "axios";
-import cryptoService from "./cryptoService";
-
-const { decodeJWT } = {
-  ...cryptoService,
-};
 
 const baseUrl =
   process.env.NODE_ENV === "development"
@@ -31,7 +26,7 @@ const post_fetchUserInfo = async (
       "Content-Type": "application/json",
     },
   });
-  return decodeJWT(response.data);
+  return response.data;
 };
 
 const oidcService = { post_fetchUserInfo };

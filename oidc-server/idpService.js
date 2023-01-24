@@ -1,12 +1,13 @@
 const axios = require("axios");
 const jose = require("jose");
-const { IDP_BASE_URL, IDP_AUD_URL, CLIENT_ASSERTION_TYPE, PRIVATE_KEY } = require("./config");
+const { IDP_BASE_URL, IDP_AUD_URL, CLIENT_ASSERTION_TYPE, CLIENT_PRIVATE_KEY, USERINFO_RESPONSE_TYPE, JWE_USERINFO_PRIVATE_KEY } = require("./config");
 
 const baseUrl = IDP_BASE_URL.trim();
 const getTokenEndPoint = "/oauth/token";
 const getUserInfoEndPoint = "/oidc/userinfo";
 
 const alg = "RS256";
+const jweEncryAlgo = "RSA-OAEP-256";
 const expirationTime = "1h";
 
 const post_GetToken = async ({
@@ -43,9 +44,8 @@ const get_GetUserInfo = async (access_token) => {
     },
   });
 
-  return response.data;
+  return decodeResponse(response.data);
 };
-
 
 const generateSignedJwt = async (clientId) => {
   // Set headers for JWT
@@ -60,10 +60,10 @@ const generateSignedJwt = async (clientId) => {
     aud: IDP_AUD_URL,
   };
 
-  var decodeKey = Buffer.from(PRIVATE_KEY, 'base64')?.toString();
+  var decodeKey = Buffer.from(CLIENT_PRIVATE_KEY, 'base64')?.toString();
   const jwkObject = JSON.parse(decodeKey);
   const privateKey = await jose.importJWK(jwkObject, alg);
-  // var privateKey = await jose.importPKCS8(PRIVATE_KEY, alg);
+  // var privateKey = await jose.importPKCS8(CLIENT_PRIVATE_KEY, alg);
 
   const jwt = new jose.SignJWT(payload)
     .setProtectedHeader(header)
@@ -72,6 +72,32 @@ const generateSignedJwt = async (clientId) => {
     .sign(privateKey);
 
   return jwt;
+};
+
+const decodeResponse = async (userInfoResponse) => {
+
+  let response = userInfoResponse;
+
+  if (USERINFO_RESPONSE_TYPE.toLowerCase() === "jwe") {
+    var decodeKey = Buffer.from(JWE_USERINFO_PRIVATE_KEY, 'base64')?.toString();
+    const jwkObject = JSON.parse(decodeKey);
+    const privateKeyObj = await jose.importJWK(jwkObject, jweEncryAlgo);
+
+    try {
+      const { plaintext, protectedHeader } = await jose.compactDecrypt(response, privateKeyObj)
+      response = new TextDecoder().decode(plaintext);
+    } catch (error) {
+      try {
+        const { plaintext } = await jose.flattenedDecrypt(response, privateKeyObj)
+        response = new TextDecoder().decode(plaintext);
+      } catch (error) {
+        const { plaintext } = await jose.generalDecrypt(response, privateKeyObj)
+        response = new TextDecoder().decode(plaintext);
+      }
+    }
+  }
+
+  return await new jose.decodeJwt(response);
 };
 
 module.exports = {
