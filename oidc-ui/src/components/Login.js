@@ -44,25 +44,29 @@ export default function Login({ clientService, i18nKeyPrefix = "login" }) {
         </h1>
 
         <div className="w-full flex mb-6 text-slate-500">
-          <span className="w-11 inline-flex items-center px-3 text-sm text-gray-900 bg-gray-200 rounded-l-md border border-r-0 border-gray-300">
+          <span className="w-11 inline-flex items-center px-3 text-sm text-gray-900 bg-gray-200 border border-gray-300 
+          ltr:rounded-l-md ltr:border-r-0 rtl:rounded-r-md rtl:border-l-0">
             <img src="images/username_icon.png" />
           </span>
           <input
             type="text"
             id="user"
-            className="rounded-none rounded-r-lg bg-gray-50 border text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 text-sm border-gray-300 p-2.5  "
+            className="rounded-none bg-gray-50 border text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 text-sm border-gray-300 p-2.5
+            ltr:rounded-r-lg rtl:rounded-l-lg"
             placeholder={t("username")}
           />
         </div>
 
         <div className="w-full flex mb-6 text-slate-500">
-          <span className="w-11 inline-flex items-center px-3 text-sm text-gray-900 bg-gray-200 rounded-l-md border border-r-0 border-gray-300">
+          <span className="w-11 inline-flex items-center px-3 text-sm text-gray-900 bg-gray-200 border border-r-0 border-gray-300 
+          ltr:rounded-l-md ltr:border-r-0 rtl:rounded-r-md rtl:border-l-0">
             <img src="images/password_icon.png" />
           </span>
           <input
             type="password"
             id="password"
-            className="rounded-none rounded-r-lg bg-gray-50 border text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 text-sm border-gray-300 p-2.5"
+            className="rounded-none bg-gray-50 border text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 text-sm border-gray-300 p-2.5
+            ltr:rounded-r-lg rtl:rounded-l-lg"
             placeholder={t("password")}
           />
         </div>
@@ -87,8 +91,8 @@ export default function Login({ clientService, i18nKeyPrefix = "login" }) {
         </div>
         <RedirectButton
           uri_idp_UI={uri_idp_UI}
-          text={t("sign_in_with_mosip")}
-          logoPath="mosip_logo.png"
+          text={t("sign_in_with")}
+          logoPath="esignet_logo.png"
         />
         <div className="flex flex-justify mt-5 w-full items-center text-center">
           <p className="w-full text-center">

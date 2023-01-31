@@ -1,9 +1,4 @@
 import axios from "axios";
-import cryptoService from "./cryptoService";
-
-const { decodeJWT } = {
-  ...cryptoService,
-};
 
 const baseUrl =
   process.env.NODE_ENV === "development"
@@ -12,6 +7,14 @@ const baseUrl =
 
 const fetchUserInfoEndPoint = "/fetchUserInfo";
 
+/**
+ * Triggers /fetchUserInfo API on relying party server
+ * @param {string} code auth code
+ * @param {string} client_id registered client id
+ * @param {string} redirect_uri validated redirect_uri
+ * @param {string} grant_type grant_type
+ * @returns decode/decrypted user information json
+ */
 const post_fetchUserInfo = async (
   code,
   client_id,
@@ -31,7 +34,7 @@ const post_fetchUserInfo = async (
       "Content-Type": "application/json",
     },
   });
-  return decodeJWT(response.data);
+  return response.data;
 };
 
 const oidcService = { post_fetchUserInfo };

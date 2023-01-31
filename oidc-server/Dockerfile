@@ -23,7 +23,9 @@ ARG container_user_gid=1001
 
 ARG idp_api_url
 ARG idp_aud_url
-ARG private_key
+ARG client_private_key
+ARG userinfo_response_type
+ARG jwe_userinfo_private_key
 
 ENV work_dir=/app
 
@@ -37,7 +39,9 @@ COPY . ./
 ENV PORT=8888
 ENV IDP_BASE_URL=${idp_api_url}
 ENV IDP_AUD_URL=${idp_aud_url}
-ENV PRIVATE_KEY=${private_key}
+ENV CLIENT_PRIVATE_KEY=${client_private_key}
+ENV USERINFO_RESPONSE_TYPE=${userinfo_response_type}
+ENV JWE_USERINFO_PRIVATE_KEY=${jwe_userinfo_private_key}
 
 # change permissions of file inside working dir
 RUN chown -R ${container_user}:${container_user} ${work_dir}

@@ -22,6 +22,7 @@ export default function UserProfile({
   const [error, setError] = useState({ errorCode: "", errorMsg: "" });
   const [userInfo, setUserInfo] = useState(null);
   const [status, setStatus] = useState(states.LOADING);
+  const [showRawUserInfo, setShowRawUserInfo] = useState(false);
 
   const navigate = useNavigate();
 
@@ -85,7 +86,7 @@ export default function UserProfile({
   };
 
   let el = (
-    <div className="w-full pt-5">
+    <div className="w-full pt-5 px-20">
       <div className="flex-grow bg-[#F2F4F4] mt-8 mb-6 shadow-lg rounded">
         <div className="py-10">
           {status === states.LOADING && (
@@ -136,6 +137,22 @@ export default function UserProfile({
                   <div className="flex justify-start">{t("birth_date")}</div>
                   <div className="flex justify-end">{userInfo?.birthdate}</div>
                 </div>
+                <div className="px-4 py-3 grid grid-cols-2">
+                  <div className="flex justify-start">{t("address")}</div>
+                  <div className="flex justify-end">{userInfo?.address}</div>
+                </div>
+              </div>
+              <div className="px-4">
+                <button
+                  type="button"
+                  className="font-medium text-cyan-700 hover:underline"
+                  onClick={(e) => { e.preventDefault(); setShowRawUserInfo(!showRawUserInfo) }}
+                >
+                  {showRawUserInfo ? t("hide_raw_user_info") : t("show_raw_user_info")}
+                </button>
+                {showRawUserInfo && (
+                  <p dir="ltr" className="break-words">{JSON.stringify(userInfo)}</p>
+                )}
               </div>
             </>
           )}
