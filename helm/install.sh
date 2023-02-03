@@ -28,17 +28,6 @@ if [ ! -f "$JWE_USERINFO_PRIVATE_KEY" ]; then
   exit 0;
 fi
 
-read -p "Please provide userinfo response type : " USERINFO_RESPONSE_TYPE
-
-if [ -z "$USERINFO_RESPONSE_TYPE" ]; then
-  echo "Client userinfo response type not provided; EXITING;";
-  exit 0;
-fi
-if [ ! -f "$USERINFO_RESPONSE_TYPE" ]; then
-  echo "ClienT userinfo response type not provided; EXITING;";
-  exit 0;
-fi
-
 read -p "Please provide oidc domain (eg: healthservices.sandbox.xyz.net ) : " OIDC_HOST
 
 if [ -z "$OIDC_HOST" ]; then
