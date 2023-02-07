@@ -92,10 +92,20 @@ spec:
               value: {{ .Values.oidc_server.IDP_BASE_URL }}
             - name: IDP_AUD_URL
               value: {{ .Values.oidc_server.IDP_AUD_URL }}
-            - name: PRIVATE_KEY
+            - name: CLIENT_PRIVATE_KEY
               valueFrom:
                 secretKeyRef:
-                  key: private-key
+                  key: client-private-key
+                  name: oidc-server-secrets
+            - name: JWE_USERINFO_PRIVATE_KEY
+              valueFrom:
+                secretKeyRef:
+                  key: jwe-userinfo-private-key
+                  name: oidc-server-secrets
+            - name: USERINFO_RESPONSE_TYPE
+              valueFrom:
+                secretKeyRef:
+                  key: userinfo-response-type
                   name: oidc-server-secrets
             {{- if .Values.extraEnvVars }}
             {{- include "common.tplvalues.render" (dict "value" .Values.extraEnvVars "context" $) | nindent 12 }}

@@ -6,14 +6,25 @@ if [ $# -ge 1 ] ; then
   export KUBECONFIG=$1
 fi
 
-read -p "Please provide private key file : " PRIVATE_KEY
+read -p "Please provide client private key file : " CLIENT_PRIVATE_KEY
 
-if [ -z "$PRIVATE_KEY" ]; then
-  echo "Private key file not provided; EXITING;";
+if [ -z "$CLIENT_PRIVATE_KEY" ]; then
+  echo "Client Private key file not provided; EXITING;";
   exit 0;
 fi
-if [ ! -f "$PRIVATE_KEY" ]; then
-  echo "Private key not found; EXITING;";
+if [ ! -f "$CLIENT_PRIVATE_KEY" ]; then
+  echo "Client Private key not found; EXITING;";
+  exit 0;
+fi
+
+read -p "Please provide jwe userinfo private key file : " JWE_USERINFO_PRIVATE_KEY
+
+if [ -z "$JWE_USERINFO_PRIVATE_KEY" ]; then
+  echo "Client jwe userinfo Private key file not provided; EXITING;";
+  exit 0;
+fi
+if [ ! -f "$JWE_USERINFO_PRIVATE_KEY" ]; then
+  echo "Client jwe userinfo Private key not found; EXITING;";
   exit 0;
 fi
 
