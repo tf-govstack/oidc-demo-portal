@@ -1,4 +1,4 @@
-# OIDC Demo Portal
+## OIDC Demo Portal
 
 ## Overview
 This repository contains the reference implementation of a relying party's website that wants to use [MOSIP's IDP (Identity Provider) services](https://github.com/mosip/idp) to log in users into its portal.
