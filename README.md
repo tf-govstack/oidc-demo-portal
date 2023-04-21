@@ -1,6 +1,6 @@
 ## OIDC Demo Portal
 
-## Overview
+# Overview
 This repository contains the reference implementation of a relying party's website that wants to use [MOSIP's IDP (Identity Provider) services](https://github.com/mosip/idp) to log in users into its portal.
 
 This portal uses [OpenID specs](https://openid.net/specs/openid-connect-core-1_0.html) to communicate with [MOSIP IDP Services](https://github.com/mosip/idp).
